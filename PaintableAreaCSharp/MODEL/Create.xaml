@@ -266,7 +266,11 @@
                     Style="{StaticResource ActionButtons}" />
 
             </DockPanel>
-            <CheckBox Margin="5" Content="3dconnexion" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+            <CheckBox
+                Margin="5"
+                Checked="CheckBox_Checked"
+                Content="3dconnexion on"
+                Unchecked="CheckBox_Unchecked" />
 
         </StackPanel>
         <DockPanel Grid.Column="1" LastChildFill="True">
