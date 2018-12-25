@@ -1,0 +1,408 @@
+﻿<Window
+    x:Class="Blastman.Create"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:local="clr-namespace:Blastman"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Blastman program"
+    Height="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle1}" />
+            <Setter Property="AutoGenerateColumns" Value="False" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+
+            <Setter Property="ClipboardCopyMode" Value="ExcludeHeader" />
+        </Style>
+        <Style x:Key="textBlockStyle1" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style x:Key="ColumnHeaderStyle1" TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Orange" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="5,0,0,0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ToolTip" Value="Kliknúť pre usporiadanie." />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DOFSlider" TargetType="Slider">
+            <Setter Property="Width" Value="320" />
+            <Setter Property="TickPlacement" Value="BottomRight" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style x:Key="DOFText" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style x:Key="ActionButtons" TargetType="Button">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Padding" Value="5" />
+
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White" />
+
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#545d6a" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Height" Value="auto" />
+
+        </Style>
+    </Window.Resources>
+    <Grid Background="#2e3137">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Margin="10">
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="0,5,10,5" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="DockPanel.Dock" Value="Right" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="#545d6a" />
+
+                        <Setter Property="Width" Value="100" />
+
+                        <Setter Property="TextAlignment" Value="Center" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Label Content="Stupne voľnosti robota" FontSize="20" />
+                <DockPanel>
+                    <Label
+                        Content="Hlavná os X (P1_X)"
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP1_X, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP1_X"
+                    Maximum="10000"
+                    Minimum="0"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P1_X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Hlavná os Y (P2_Y)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP2_Y, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+                <Slider
+                    x:Name="sliderP2_Y"
+                    Maximum="5000"
+                    Minimum="0"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P2_Y, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <DockPanel>
+                    <Label Content="Otáčanie hlavnej osi (P3_C)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP3_, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+                <Slider
+                    x:Name="sliderP3_"
+                    Maximum="360"
+                    Minimum="-360"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P3_C, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Posun hlavnej osi (P4_Z)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP4_Z, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP4_Z"
+                    Maximum="1000"
+                    Minimum="0"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P4_Z, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Otáčanie prvého ramena (P5_A1)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP5_A1, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP5_A1"
+                    Maximum="360"
+                    Minimum="-360"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P5_A1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Otáčanie druhého ramena (P6_A2)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP6_A2, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP6_A2"
+                    Maximum="360"
+                    Minimum="-360"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P6_A2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Otáčanie druhého ramena (P7_A3)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP7_A3, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP7_A3"
+                    Maximum="360"
+                    Minimum="-360"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P7_A3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DockPanel>
+                    <Label Content="Otáčanie druhého ramena (P8_A4)" Style="{StaticResource DOFText}" />
+                    <TextBox Text="{Binding ElementName=sliderP8_A4, Mode=TwoWay, Path=Value, StringFormat=N0}" />
+                </DockPanel>
+
+                <Slider
+                    x:Name="sliderP8_A4"
+                    Maximum="360"
+                    Minimum="-360"
+                    Style="{StaticResource DOFSlider}"
+                    TickFrequency="100"
+                    Value="{Binding P8_A4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <!--<StackPanel DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Create}}}" Orientation="Vertical">-->
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="10,0,10,0" />
+                        <Setter Property="Width" Value="100" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="#545d6a" />
+                    </Style>
+                </StackPanel.Resources>
+                <DockPanel>
+                    <Label Content="Trvanie operácie (s)" DockPanel.Dock="Left" />
+                    <TextBox
+                        x:Name="txtTimeOrAxle"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Time_or_axle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Joint_speed" />
+                    <TextBox
+                        x:Name="txtJointSpeed"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Joint_speed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Blasting_state" />
+                    <TextBox
+                        x:Name="txtBlastingState"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Blasting_state, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Swing_axle" />
+                    <TextBox
+                        x:Name="txtSwingAxle"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Swing_axle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Swing_angle" />
+                    <TextBox
+                        x:Name="txtSwingAngle"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Swing_angle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+                <DockPanel>
+                    <Label Content="Swing_speed" />
+                    <TextBox
+                        x:Name="txtSwingSpeed"
+                        DockPanel.Dock="Right"
+                        Text="{Binding Swing_speed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+            </StackPanel>
+            <DockPanel Margin="0,10,0,0">
+                <Button
+                    x:Name="btnSavePosition"
+                    HorizontalAlignment="Left"
+                    Click="btnSavePosition_Click"
+                    Content="Uložiť polohu"
+                    DockPanel.Dock="Left"
+                    Style="{StaticResource ActionButtons}" />
+
+            </DockPanel>
+            <CheckBox Margin="5" Content="3dconnexion" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+
+        </StackPanel>
+        <DockPanel Grid.Column="1" LastChildFill="True">
+
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                <Button
+                    x:Name="btnPlay"
+                    Margin="0,5,5,5"
+                    HorizontalAlignment="Right"
+                    Click="BtnPlay_Click"
+                    Content="Simulovať program"
+                    Style="{StaticResource ActionButtons}" />
+                <Button
+                    x:Name="btnXMLGenerate"
+                    Margin="0,5,5,5"
+                    HorizontalAlignment="Right"
+                    Click="btnXMLGenerate_Click"
+                    Content="Generovať XML kód"
+                    Style="{StaticResource ActionButtons}" />
+
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <DockPanel LastChildFill="True">
+                    <Label
+                        Grid.Column="0"
+                        Margin="0,10"
+                        Content="Zoznam polôh robota"
+                        DockPanel.Dock="Top"
+                        FontSize="20" />
+                    <Border
+                        Margin="0,5,0,0"
+                        Background="#545d6a"
+                        BorderBrush="Azure"
+                        BorderThickness="2"
+                        DockPanel.Dock="Bottom">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Content="Trvanie programu:" />
+                            <Label Grid.Column="1" Content="{Binding TotalProgramTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0} s}" />
+                        </Grid>
+                    </Border>
+                    <DataGrid
+                        x:Name="datagridPolohy"
+                        Grid.Column="0"
+                        VerticalAlignment="Stretch"
+                        DockPanel.Dock="Bottom"
+                        ItemsSource="{Binding oPositionList, diag:PresentationTraceSources.TraceLevel=High}"
+                        RowHeaderWidth="0"
+                        Style="{DynamicResource DataGridStyle1}">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <!--<DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Orange" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="auto"
+                                Binding="{Binding PositionNumber}"
+                                FontWeight="Bold"
+                                Header="Poradie"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="auto"
+                                Binding="{Binding Time_or_axle}"
+                                Header="Čas operácie (s)"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P1_X}"
+                                Header="P1_X"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P2_Y}"
+                                Header="P2_Y"
+                                IsReadOnly="True" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </DockPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Button
+                        x:Name="btnDeletePosition"
+                        HorizontalAlignment="Center"
+                        Click="BtnDeletePosition_Click"
+                        Content="Zmazať polohu"
+                        Style="{StaticResource ActionButtons}" />
+                    <Button
+                        x:Name="btnUp"
+                        HorizontalAlignment="Center"
+                        Click="BtnUp_Click"
+                        Content="Hore"
+                        Style="{StaticResource ActionButtons}" />
+                    <Button
+                        x:Name="btnDown"
+                        HorizontalAlignment="Center"
+                        Click="BtnDown_Click"
+                        Content="Dole"
+                        Style="{StaticResource ActionButtons}" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{56AE5B92-F2CD-404F-A3B4-C65FBF261140}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Blastman</RootNamespace>
+    <AssemblyName>Blastman NC control</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddinGlobal.cs" />
+    <Compile Include="AdnTabIndexManager.cs" />
+    <Compile Include="ButtonActions.cs" />
+    <Compile Include="DataKybernetika.cs" />
+    <Compile Include="MODEL\BasicInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\BasicInterface.Designer.cs">
+      <DependentUpon>BasicInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Blastman_robot.cs" />
+    <Compile Include="MODEL\Create.xaml.cs">
+      <DependentUpon>Create.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\NewVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\NewVersion.Designer.cs">
+      <DependentUpon>NewVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Meranie.cs" />
+    <Compile Include="MODEL\Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Copy.Designer.cs">
+      <DependentUpon>Copy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Novy PK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Novy PK.Designer.cs">
+      <DependentUpon>Novy PK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Povrch.cs" />
+    <Compile Include="MODEL\Povrchy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Povrchy.Designer.cs">
+      <DependentUpon>Povrchy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Predpis kontroly.cs" />
+    <Compile Include="MODEL\PridanieMerania.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\PridanieMerania.Designer.cs">
+      <DependentUpon>PridanieMerania.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\Rez.cs" />
+    <Compile Include="MODEL\Tabulka rezov.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\Tabulka rezov.Designer.cs">
+      <DependentUpon>Tabulka rezov.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MODEL\View.Designer.cs">
+      <DependentUpon>View.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NumericTextBoxOLD.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PaintableArea.cs" />
+    <Compile Include="InventorButton.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Selection.cs" />
+    <Compile Include="Selection2.cs" />
+    <Compile Include="XMLReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="settings.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Resources\cursor128.ico" />
+    <None Include="Resources\cursor32.ico" />
+    <None Include="Resources\cursor16.ico" />
+    <EmbeddedResource Include="Create.ico" />
+    <EmbeddedResource Include="Create_small.ico" />
+    <EmbeddedResource Include="Edit.ico" />
+    <EmbeddedResource Include="Edit_small.ico" />
+    <EmbeddedResource Include="login.ico" />
+    <EmbeddedResource Include="login_small.ico" />
+    <EmbeddedResource Include="logout.ico" />
+    <EmbeddedResource Include="logout_small.ico" />
+    <EmbeddedResource Include="MODEL\NewVersion.resx">
+      <DependentUpon>NewVersion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\Copy.resx">
+      <DependentUpon>Copy.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\Povrchy.resx">
+      <DependentUpon>Povrchy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Table.ico" />
+    <EmbeddedResource Include="Table_small.ico" />
+    <EmbeddedResource Include="View.ico" />
+    <EmbeddedResource Include="View_small.ico" />
+    <None Include="Properties\DataSources\Predpis_kontroly.datasource" />
+    <EmbeddedResource Include="MODEL\Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\Novy PK.resx">
+      <DependentUpon>Novy PK.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\PridanieMerania.resx">
+      <DependentUpon>PridanieMerania.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\Tabulka rezov.resx">
+      <DependentUpon>Tabulka rezov.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\View.resx">
+      <DependentUpon>View.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MODEL\BasicInterface.resx">
+      <DependentUpon>BasicInterface.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pa.ico" />
+    <EmbeddedResource Include="drawings.ico" />
+    <EmbeddedResource Include="flash30.ico" />
+    <EmbeddedResource Include="flash30small.ico" />
+    <Content Include="development log.txt" />
+    <Content Include="PackageContents.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="partlist.ico" />
+    <EmbeddedResource Include="settings48.ico" />
+    <EmbeddedResource Include="settings48small.ico" />
+    <Content Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Blastman NC Control.Addin">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PaintableAreaCSharp.X.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\DataPoints.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"C:\Program Files (x86)\InventorNetAddinWizard\Bin\mt.exe" -manifest "$(ProjectDir)PaintableAreaCSharp.X.manifest" -outputresource:"$(TargetPath)";#5"$(TargetPath)"
+copy /y "$(TargetFileName)*.*" "C:\ProgramData\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"
+copy /y "$(ProjectDir)PackageContents.xml" "C:\ProgramData\Autodesk\ApplicationPlugins\Blastman NC Control.bundle"
+copy /y "$(ProjectDir)\Blastman NC Control.Addin" "C:\ProgramData\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"
+copy /y "$(ProjectDir)\settings.xml" "C:\ProgramData\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <ReferencePath Include="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\autodesk.inventor.interop\v4.0_20.0.0.0__d84147f8b4276564\autodesk.inventor.interop.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\KybCrypt.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.VisualBasic.Compatibility.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PublicAssemblies\stdole.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\WindowsBase.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\WindowsFormsIntegration.dll" />
+    <ReferencePath Include="C:\Windows\assembly\GAC_MSIL\Office\15.0.0.0__71e9bce111e9429c\Office.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="C:\Windows\assembly\GAC_MSIL\Microsoft.Vbe.Interop\15.0.0.0__71e9bce111e9429c\Microsoft.Vbe.Interop.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+    <ReferencePath Include="obj\Debug\Interop.IWshRuntimeLibrary.dll">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ReferencePath>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\obj\Debug\MODEL\Create.g.cs" />
+  </ItemGroup>
+</Project>

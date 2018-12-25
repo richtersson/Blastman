@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="Inventor" ProductType="Application" Name="Blastman NC Control" AppVersion="1.0.0" Description="" Author="MAP s.r.o. Martin Richter" ProductCode="{4D109CD0-9BA6-46CC-B6CD-3BE569887CD5}" >
+  
+  <RuntimeRequirements />
+  <Components Description="install">
+    <RuntimeRequirements OS="Win32|Win64" Platform="Inventor" SeriesMin="Ir17" SeriesMax="Ir24" />
+    <ComponentEntry AppName="Blastman NC Control" Version="1.0.0" ModuleName="Blastman NC Control.addin" AppDescription="" />
+  </Components>
+</ApplicationPackage>

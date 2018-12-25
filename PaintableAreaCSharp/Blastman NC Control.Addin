@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin Type="Standard">
+  <ClassId>{4D109CD0-9BA6-46CC-B6CD-3BE569887CD5}</ClassId>
+  <ClientId>{4D109CD0-9BA6-46CC-B6CD-3BE569887CD5}</ClientId>
+  <DisplayName>Blastman NC Control</DisplayName>
+  <Description>Inventor addin for programming Blastman robot</Description>
+  <Assembly>Blastman NC control.dll</Assembly>
+  <LoadOnStartUp>1</LoadOnStartUp>
+  <UserUnloadable>1</UserUnloadable>
+  <Hidden>0</Hidden>
+  <SupportedSoftwareVersionGreaterThan>16..</SupportedSoftwareVersionGreaterThan>
+  <SupportedSoftwareVersionLessThan>24..</SupportedSoftwareVersionLessThan>
+  <DataVersion>1</DataVersion>
+  <UserInterfaceVersion>1</UserInterfaceVersion>
+</Addin>
