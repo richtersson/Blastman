@@ -264,13 +264,6 @@
                     Content="Uložiť polohu"
                     DockPanel.Dock="Left"
                     Style="{StaticResource ActionButtons}" />
-                <Button
-                    x:Name="btnasdPosition"
-                    HorizontalAlignment="Left"
-                    Click="btnSavePosition_Click"
-                    Content="Uložiť polohu 2"
-                    DockPanel.Dock="Left"
-                    Style="{StaticResource ActionButtons}" />
 
             </DockPanel>
             <CheckBox
@@ -278,7 +271,6 @@
                 Checked="CheckBox_Checked"
                 Content="3dconnexion on"
                 Unchecked="CheckBox_Unchecked" />
-
 
         </StackPanel>
         <DockPanel Grid.Column="1" LastChildFill="True">
