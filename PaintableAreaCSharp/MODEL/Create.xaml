@@ -113,8 +113,10 @@
 
                 <Slider
                     x:Name="sliderP1_X"
+                    LargeChange="5"
                     Maximum="10000"
                     Minimum="0"
+                    SmallChange="5"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P1_X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -262,6 +264,13 @@
                     HorizontalAlignment="Left"
                     Click="btnSavePosition_Click"
                     Content="Uložiť polohu"
+                    DockPanel.Dock="Left"
+                    Style="{StaticResource ActionButtons}" />
+                <Button
+                    x:Name="btnHomePosition"
+                    HorizontalAlignment="Right"
+                    Click="BtnHomePosition_Click"
+                    Content="Domov"
                     DockPanel.Dock="Left"
                     Style="{StaticResource ActionButtons}" />
 

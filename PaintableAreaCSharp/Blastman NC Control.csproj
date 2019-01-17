@@ -96,6 +96,7 @@
       <DependentUpon>BasicInterface.cs</DependentUpon>
     </Compile>
     <Compile Include="MODEL\Blastman_robot.cs" />
+    <Compile Include="MODEL\cldDB.cs" />
     <Compile Include="MODEL\Create.xaml.cs">
       <DependentUpon>Create.xaml</DependentUpon>
     </Compile>

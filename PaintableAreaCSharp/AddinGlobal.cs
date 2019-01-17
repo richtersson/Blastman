@@ -12,6 +12,8 @@ using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
 using IWshRuntimeLibrary;
+using System.Windows;
+using System.Linq;
 
 namespace Blastman
 {
@@ -299,7 +301,7 @@ namespace Blastman
                 oDoc = null;
                 double[] coor = new double[] { };
                 oVertex.GetPoint(ref coor);
-                Point oPo = oTrans.CreatePoint(coor[0],coor[1],coor[2]);
+                Inventor.Point oPo = oTrans.CreatePoint(coor[0],coor[1],coor[2]);
                 return oPo;
             }
 
@@ -368,7 +370,7 @@ namespace Blastman
             
 
         }
-        public static Point GetPointFromReferenceKey(string oRefKey, int KeyContext)
+        public static Inventor.Point GetPointFromReferenceKey(string oRefKey, int KeyContext)
         {
             try
             {
@@ -576,7 +578,12 @@ namespace Blastman
 
             return null;
         }
-
+        public static bool IsWindowOpen<T>(string name = "") where T : Window
+        {
+            return string.IsNullOrEmpty(name)
+               ? System.Windows.Application.Current.Windows.OfType<T>().Any()
+               : System.Windows.Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
+        }
 
     }
     internal class InventorMainFrame : System.Windows.Forms.IWin32Window

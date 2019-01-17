@@ -131,7 +131,7 @@ namespace Blastman
 
                 if (loaded1stTime == true)
                 {
-
+                    new System.Windows.Application();
                     UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
                     if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface) //kClassicInterface support can be added if necessary.
                     {

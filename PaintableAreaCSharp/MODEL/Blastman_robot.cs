@@ -167,36 +167,36 @@ namespace Blastman
             double oStartPositionP8 = firstposition.oDof.P8_A4 / 180 * Math.PI;
 
 
-            oP1_X.Value = -oStartPositionP1 / 10;
-            oP2_Y.Value = -oStartPositionP2 / 10;
-            oP3_C.Value = oStartPositionP3 / 180 * Math.PI;
-            oP4_Z.Value = oStartPositionP4 / 10;
-            oP5_A1.Value = oStartPositionP5 / 180 * Math.PI;
-            oP6_A2.Value = oStartPositionP6 / 180 * Math.PI;
-            oP7_A3.Value = oStartPositionP7 / 180 * Math.PI;
-            oP8_A4.Value = oStartPositionP8 / 180 * Math.PI;
+            oP1_X.Value = -oStartPositionP1;
+            oP2_Y.Value = -oStartPositionP2;
+            oP3_C.Value = oStartPositionP3;
+            oP4_Z.Value = oStartPositionP4;
+            oP5_A1.Value = oStartPositionP5;
+            oP6_A2.Value = oStartPositionP6;
+            oP7_A3.Value = oStartPositionP7;
+            oP8_A4.Value = oStartPositionP8;
 
             double oLimitPositionP1 = secondposition.oDof.P1_X/10;
             double oLimitPositionP2 = secondposition.oDof.P2_Y / 10;
-            double oLimitPositionP3 = secondposition.oDof.P3_C / 180 * Math.PI; ;
+            double oLimitPositionP3 = secondposition.oDof.P3_C / 180 * Math.PI; 
             double oLimitPositionP4 = secondposition.oDof.P4_Z / 10;
-            double oLimitPositionP5 = secondposition.oDof.P5_A1 / 180 * Math.PI; ;
-            double oLimitPositionP6 = secondposition.oDof.P6_A2 / 180 * Math.PI; ;
-            double oLimitPositionP7 = secondposition.oDof.P7_A3 / 180 * Math.PI; ;
-            double oLimitPositionP8 = secondposition.oDof.P8_A4 / 180 * Math.PI; ;
+            double oLimitPositionP5 = secondposition.oDof.P5_A1 / 180 * Math.PI; 
+            double oLimitPositionP6 = secondposition.oDof.P6_A2 / 180 * Math.PI; 
+            double oLimitPositionP7 = secondposition.oDof.P7_A3 / 180 * Math.PI; 
+            double oLimitPositionP8 = secondposition.oDof.P8_A4 / 180 * Math.PI; 
 
 
             double oStep;
             int oDelay = Convert.ToInt16(firstposition.Time_or_axle) *1000/100;
 
-            double distanceP1 = Math.Abs(oStartPositionP1) + Math.Abs(oLimitPositionP1);
-            double distanceP2 = Math.Abs(oStartPositionP2) + Math.Abs(oLimitPositionP2);
-            double distanceP3 = Math.Abs(oStartPositionP3) + Math.Abs(oLimitPositionP3);
-            double distanceP4 = Math.Abs(oStartPositionP4) + Math.Abs(oLimitPositionP4);
-            double distanceP5 = Math.Abs(oStartPositionP5) + Math.Abs(oLimitPositionP5);
-            double distanceP6 = Math.Abs(oStartPositionP6) + Math.Abs(oLimitPositionP6);
-            double distanceP7 = Math.Abs(oStartPositionP7) + Math.Abs(oLimitPositionP7);
-            double distanceP8 = Math.Abs(oStartPositionP8) + Math.Abs(oLimitPositionP8);
+            double distanceP1 = Math.Abs(oStartPositionP1-oLimitPositionP1);
+            double distanceP2 = Math.Abs(oStartPositionP2 - oLimitPositionP2);
+            double distanceP3 = Math.Abs(oStartPositionP3 - oLimitPositionP3);
+            double distanceP4 = Math.Abs(oStartPositionP4 - oLimitPositionP4);
+            double distanceP5 = Math.Abs(oStartPositionP5 - oLimitPositionP5);
+            double distanceP6 = Math.Abs(oStartPositionP6 - oLimitPositionP6);
+            double distanceP7 = Math.Abs(oStartPositionP7 - oLimitPositionP7);
+            double distanceP8 = Math.Abs(oStartPositionP8 - oLimitPositionP8);
 
             if (oStartPositionP1 > oLimitPositionP1)
                 distanceP1 = distanceP1 * -1;

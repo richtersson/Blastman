@@ -29,7 +29,7 @@ namespace Blastman
     public partial class Create : Window, INotifyPropertyChanged
     {
         private Blastman_program _oBlastmanProgram;
-        private DegreesOfFreedom _oCurrentDOF;
+  
         private ObservableCollection<PositionConfiguration> _positionList;
         private string time_or_axle;
         private string joint_speed;
@@ -542,6 +542,11 @@ namespace Blastman
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnHomePosition_Click(object sender, RoutedEventArgs e)
+        {
+            oBlastmanProgram.MoveToSliders(0, 0, 0, 0, 0, 0, 0, 0);
         }
     }
 }

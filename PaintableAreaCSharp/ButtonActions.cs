@@ -61,19 +61,23 @@ namespace Blastman
         {
             //TODO: add code below for the button click callback.
 
-            //Login oLogin = null;
+            Login oLogin = null;
             //View oView = null;
             //Edit oEdit = null;
             //Novy_PK oNovyPK = null;
-            //if (((oLogin = (Login)AddinGlobal.IsFormAlreadyOpen(typeof(Login))) == null)&& ((oView = (View)AddinGlobal.IsFormAlreadyOpen(typeof(View))) == null)&& ((oEdit = (Edit)AddinGlobal.IsFormAlreadyOpen(typeof(Edit))) == null)&& ((oNovyPK = (Novy_PK)AddinGlobal.IsFormAlreadyOpen(typeof(Novy_PK))) == null))
-            //{
-            //    oLogin = new Login();
-            //    oLogin.ShowDialog(new InventorMainFrame(AddinGlobal.InventorApp.MainFrameHWND));
-            //}
-            //else
-            //{
-            //    oLogin.Select();
-            //}
+            if (!AddinGlobal.IsWindowOpen<Window>("Login"))
+            {
+                oLogin = new Login();
+                // Could be a good idea to set the owner for this window
+                // especially if used as modeless
+                var helper = new System.Windows.Interop.WindowInteropHelper(oLogin);
+                helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
+                oLogin.Show();
+            }
+            else
+            {
+                oLogin.Activate();
+            }
 
 
         }
@@ -90,20 +94,20 @@ namespace Blastman
             //}
             //catch
             //{ }
-            //if (((oLogin = (Login)AddinGlobal.IsFormAlreadyOpen(typeof(Login))) == null) && ((oView = (View)AddinGlobal.IsFormAlreadyOpen(typeof(View))) == null) && ((oEdit = (Edit)AddinGlobal.IsFormAlreadyOpen(typeof(Edit))) == null) && ((oNovyPK = (Novy_PK)AddinGlobal.IsFormAlreadyOpen(typeof(Novy_PK))) == null))
-            //{
-            //    foreach (InventorButton iBtn in AddinGlobal.ButtonList)
-            //    {
-            //        if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
-            //            iBtn.ButtonDef.Enabled = false;
-            //        if (iBtn.ButtonDef.DisplayName == "Prihlásiť")
-            //            iBtn.ButtonDef.Enabled = true;
+            if (!AddinGlobal.IsWindowOpen<Window>("Login"))
+            {
+                foreach (InventorButton iBtn in AddinGlobal.ButtonList)
+                {
+                    if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
+                        iBtn.ButtonDef.Enabled = false;
+                    if (iBtn.ButtonDef.DisplayName == "Prihlásiť")
+                        iBtn.ButtonDef.Enabled = true;
 
-            //    }
-            //    AddinGlobal.LoggedIn = false;
-            //    AddinGlobal.oSetFaces = null;
-            //}
-               
+                }
+                AddinGlobal.LoggedIn = false;
+                
+            }
+
         }
         public static void Button5_Execute()
         {
