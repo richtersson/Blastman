@@ -25,6 +25,7 @@ namespace Blastman
 
 
                 AddinGlobal.LoggedIn = true;
+                AddinGlobal.CurrentUser = txtUserName.Text;
                 foreach (InventorButton iBtn in AddinGlobal.ButtonList)
                 {
                     if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
@@ -60,6 +61,33 @@ namespace Blastman
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            txtUserName.Focus();
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                try
+                {
+                    LoginProcedure();
+
+                }
+                catch (Exception ex)
+                {
+                    lblInfo.Content = ex.Message;
+
+                }
+            }
+        }
+
+        private void TxtPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtPassword.SelectAll();
         }
     }
 }

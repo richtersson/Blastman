@@ -65,18 +65,21 @@ namespace Blastman
             //View oView = null;
             //Edit oEdit = null;
             //Novy_PK oNovyPK = null;
-            if (!AddinGlobal.IsWindowOpen<Window>("Login"))
+            // ((oLogin = (Login)AddinGlobal.IsWindowOpen<Window>("Login"))==null)
+            if (AddinGlobal.IsWindowOpenReal<Window>("Login"))
             {
                 oLogin = new Login();
                 // Could be a good idea to set the owner for this window
                 // especially if used as modeless
                 var helper = new System.Windows.Interop.WindowInteropHelper(oLogin);
                 helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
+                    
                 oLogin.Show();
             }
             else
             {
                 oLogin.Activate();
+               
             }
 
 
@@ -94,8 +97,7 @@ namespace Blastman
             //}
             //catch
             //{ }
-            if (!AddinGlobal.IsWindowOpen<Window>("Login"))
-            {
+            
                 foreach (InventorButton iBtn in AddinGlobal.ButtonList)
                 {
                     if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
@@ -106,45 +108,56 @@ namespace Blastman
                 }
                 AddinGlobal.LoggedIn = false;
                 
-            }
+           
 
         }
         public static void Button5_Execute()
         {
-            //TODO: add code below for the button click callback.
-            //Novy_PK newPK = null;
-            //Login oLogin = null;
-            //View oView = null;
-            //Edit oEdit = null;
-
-            //if (((oLogin = (Login)AddinGlobal.IsFormAlreadyOpen(typeof(Login))) == null) && ((oView = (View)AddinGlobal.IsFormAlreadyOpen(typeof(View))) == null) && ((oEdit = (Edit)AddinGlobal.IsFormAlreadyOpen(typeof(Edit))) == null) && ((newPK = (Novy_PK)AddinGlobal.IsFormAlreadyOpen(typeof(Novy_PK))) == null))
-            //{
-            //    newPK = new Novy_PK();
-            //    newPK.Show(new InventorMainFrame(AddinGlobal.InventorApp.MainFrameHWND));
-            //}
-            //else
-            //{
-            //    newPK.Select();
-            //}
-          
-        }
-        public static void Button6_Execute()
-        {
-            //Login oLogin = null;
+            NewProgram oProgram = null;
             //View oView = null;
             //Edit oEdit = null;
             //Novy_PK oNovyPK = null;
-            //if (((oLogin = (Login)AddinGlobal.IsFormAlreadyOpen(typeof(Login))) == null) && ((oView = (View)AddinGlobal.IsFormAlreadyOpen(typeof(View))) == null) && ((oEdit = (Edit)AddinGlobal.IsFormAlreadyOpen(typeof(Edit))) == null) && ((oNovyPK = (Novy_PK)AddinGlobal.IsFormAlreadyOpen(typeof(Novy_PK))) == null))
-            //{
-            //    oEdit = new Edit();
-            //    oEdit.Show(new InventorMainFrame(AddinGlobal.InventorApp.MainFrameHWND));
-            //}
-            //else
-            //{
-            //    oEdit.Select();
-            //}
+            // ((oLogin = (Login)AddinGlobal.IsWindowOpen<Window>("Login"))==null)
+            if (AddinGlobal.IsWindowOpenReal<Window>("NewProgram"))
+            {
+                oProgram = new NewProgram();
+                // Could be a good idea to set the owner for this window
+                // especially if used as modeless
+                var helper = new System.Windows.Interop.WindowInteropHelper(oProgram);
+                helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
 
-            
+                oProgram.Show();
+            }
+            else
+            {
+                oProgram.Activate();
+
+            }
+        }
+        public static void Button6_Execute()
+        {
+            EditWPF oEdit = null;
+            //View oView = null;
+            //Edit oEdit = null;
+            //Novy_PK oNovyPK = null;
+            // ((oLogin = (Login)AddinGlobal.IsWindowOpen<Window>("Login"))==null)
+            if (AddinGlobal.IsWindowOpenReal<Window>("NewProgram"))
+            {
+                oEdit = new EditWPF();
+                // Could be a good idea to set the owner for this window
+                // especially if used as modeless
+                var helper = new System.Windows.Interop.WindowInteropHelper(oEdit);
+                helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
+
+                oEdit.Show();
+            }
+            else
+            {
+                oEdit.Activate();
+
+            }
+
+
         }
         public static void Button7_Execute()
         {
@@ -166,8 +179,8 @@ namespace Blastman
         }
         public static void Button8_Execute()
         {
-            Create oCreate = new Create();
-            oCreate.Show();
+            //Create oCreate = new Create();
+            //oCreate.Show();
         }
 
 

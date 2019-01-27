@@ -127,11 +127,14 @@ namespace Blastman
                 ViewButton.ButtonDef.Enabled = false;
                 ViewButton.Execute = ButtonActions.Button7_Execute;
                 AddinGlobal.ButtonList.Add(ViewButton);
-
+                
 
                 if (loaded1stTime == true)
                 {
-                    new System.Windows.Application();
+                    //if (null == System.Windows.Application.Current)
+                    //{
+                    //    new System.Windows.Application();
+                    //}
                     UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
                     if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface) //kClassicInterface support can be added if necessary.
                     {

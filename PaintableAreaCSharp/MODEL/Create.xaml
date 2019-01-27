@@ -19,14 +19,15 @@
 
             <Setter Property="ClipboardCopyMode" Value="ExcludeHeader" />
         </Style>
+
         <Style x:Key="textBlockStyle1" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
         <Style x:Key="ColumnHeaderStyle1" TargetType="DataGridColumnHeader">
             <Setter Property="Height" Value="30" />
-            <Setter Property="Background" Value="Orange" />
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="#225186" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Padding" Value="5,0,0,0" />
@@ -52,12 +53,15 @@
         <Style x:Key="ActionButtons" TargetType="Button">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Height" Value="35" />
-            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="FontWeight" Value="Medium" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="HorizontalContentAlignment" Value="Right" />
             <Setter Property="Width" Value="auto" />
             <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="#225186" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="Transparent" />
 
         </Style>
         <Style TargetType="Label">
@@ -280,24 +284,73 @@
         </StackPanel>
         <DockPanel Grid.Column="1" LastChildFill="True">
 
+            <Border
+                Margin="10"
+                Padding="10"
+                Background="Black"
+                CornerRadius="10"
+                DockPanel.Dock="Bottom">
+                <DockPanel>
+                    <Label Content="Informácie" DockPanel.Dock="Top" />
+                    <Separator DockPanel.Dock="Top" />
+                    <StackPanel
+                        Margin="20,0,0,0"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                        <Label Content="Názov programu:" />
+                        <Label Content="{Binding ProgramName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="20,0,0,0"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                        <Label Content="Trvanie programu:" />
+                        <Label Content="{Binding TotalProgramTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0} s}" />
 
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                <Button
-                    x:Name="btnPlay"
-                    Margin="0,5,5,5"
-                    HorizontalAlignment="Right"
-                    Click="BtnPlay_Click"
-                    Content="Simulovať program"
-                    Style="{StaticResource ActionButtons}" />
-                <Button
-                    x:Name="btnXMLGenerate"
-                    Margin="0,5,5,5"
-                    HorizontalAlignment="Right"
-                    Click="btnXMLGenerate_Click"
-                    Content="Generovať XML kód"
-                    Style="{StaticResource ActionButtons}" />
+                    </StackPanel>
+                    <Label Content="Ovládanie programu" DockPanel.Dock="Top" />
+                    <Separator DockPanel.Dock="Top" />
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Button
+                            x:Name="btnSave"
+                            Margin="0,5,5,5"
+                            Click="BtnSave_Click"
+                            Content="Uložiť"
+                            Style="{StaticResource ActionButtons}" />
+                        <Button
+                            x:Name="btnExport"
+                            Margin="0,5,5,5"
+                            Content="Exportovať"
+                            Style="{StaticResource ActionButtons}" />
+                        <Button
+                            x:Name="btnPlay"
+                            Margin="0,5,5,5"
+                            HorizontalAlignment="Right"
+                            Click="BtnPlay_Click"
+                            Content="Simulovať program"
+                            Style="{StaticResource ActionButtons}" />
+                        <Button
+                            x:Name="btnXMLGenerate"
+                            Margin="0,5,5,5"
+                            HorizontalAlignment="Right"
+                            Click="btnXMLGenerate_Click"
+                            Content="Generovať XML"
+                            Style="{StaticResource ActionButtons}" />
 
-            </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button
+                            x:Name="btnClose"
+                            Margin="0,0,5,5"
+                            HorizontalAlignment="Right"
+                            Click="BtnClose_Click"
+                            Content="Zavrieť"
+                            Style="{StaticResource ActionButtons}" />
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" />
+                </DockPanel>
+
+            </Border>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -317,9 +370,8 @@
                         FontSize="20" />
                     <Border
                         Margin="0,5,0,0"
-                        Background="#545d6a"
-                        BorderBrush="Azure"
-                        BorderThickness="2"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
                         DockPanel.Dock="Bottom">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -331,14 +383,14 @@
 
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Content="Trvanie programu:" />
-                            <Label Grid.Column="1" Content="{Binding TotalProgramTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0} s}" />
+
                         </Grid>
                     </Border>
                     <DataGrid
                         x:Name="datagridPolohy"
                         Grid.Column="0"
                         VerticalAlignment="Stretch"
+                        Background="#343434"
                         DockPanel.Dock="Bottom"
                         ItemsSource="{Binding oPositionList, diag:PresentationTraceSources.TraceLevel=High}"
                         RowHeaderWidth="0"

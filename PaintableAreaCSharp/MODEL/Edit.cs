@@ -160,6 +160,8 @@ namespace Blastman
             if (dataGridView1.SelectedRows != null && dataGridView1.SelectedRows.Count != 0)
             {
                 DataGridViewRow oRow = dataGridView1.SelectedRows[0];
+
+
                 DialogResult dialogResult = MessageBox.Show("Naozaj chcete vymazať neúplný predpis pre číslo výkresu " + oRow.Cells[0].Value.ToString()+ "?", "Upozornenie", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {

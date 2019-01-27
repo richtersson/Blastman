@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+
 using Inventor;
 using System.Data;
 
@@ -14,13 +14,21 @@ using System.Diagnostics;
 using IWshRuntimeLibrary;
 using System.Windows;
 using System.Linq;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Text;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace Blastman
 {
     public static class AddinGlobal
     {
+        public static string BlastmanModelFolder = @"C:\BLASTMAN_DATA";
+        public static string CurrentUser = "";
         public static Inventor.Application InventorApp;
-
+        public static System.Windows.Application app;
         public static string RibbonPanelId;
         public static RibbonPanel RibbonPanel;
         public static List<InventorButton> ButtonList = new List<InventorButton>();
@@ -578,15 +586,97 @@ namespace Blastman
 
             return null;
         }
-        public static bool IsWindowOpen<T>(string name = "") where T : Window
+        public static Window IsWindowOpen<T>(string name = "") where T : Window
+        { 
+            foreach (Window oWindow in System.Windows.Application.Current.Windows)
+            {
+                if (oWindow.Title == name)
+                    return oWindow;
+            }
+            return null;
+            //return string.IsNullOrEmpty(name)
+            //   ? System.Windows.Application.Current.Windows.OfType<T>().Any()
+            //   : System.Windows.Application.Current.Windows.OfType<T>().Any(w => w.Title.Equals(name));
+
+           
+        }
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetWindowTextLength(HandleRef hWnd);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetWindowText(HandleRef hWnd, StringBuilder lpString, int nMaxCount);
+        [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern long GetClassName(IntPtr hwnd, StringBuilder lpClassName, long nMaxCount);
+        public static bool IsWindowOpenReal<T>(string name = "") where T : Window
         {
-            return string.IsNullOrEmpty(name)
-               ? System.Windows.Application.Current.Windows.OfType<T>().Any()
-               : System.Windows.Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
+            
+
+            var allChildWindows = new WindowHandleInfo(new IntPtr(AddinGlobal.InventorApp.MainFrameHWND)).GetAllChildHandles();
+            foreach (IntPtr oHwdn in allChildWindows)
+            {
+                int capacity = GetWindowTextLength(new HandleRef(InventorApp, oHwdn)) * 2;
+                StringBuilder stringBuilder = new StringBuilder(capacity);
+                //GetWindowText(new HandleRef(InventorApp, oHwdn), stringBuilder, stringBuilder.Capacity);
+                GetClassName(oHwdn, stringBuilder, stringBuilder.Capacity);
+                string caption = "";
+                if (!String.IsNullOrEmpty(stringBuilder.ToString()) && !String.IsNullOrWhiteSpace(stringBuilder.ToString()))
+                    caption = stringBuilder.ToString();
+            }
+            
+
+            return true;
+        }
+       
+        public static T FindChild<T>(DependencyObject parent, string childName)
+       where T : DependencyObject
+        {
+            // Confirm parent and childName are valid. 
+            if (parent == null) return null;
+
+            T foundChild = null;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                // If the child is not of the request child type child
+                T childType = child as T;
+                if (childType == null)
+                {
+                    // recursively drill down the tree
+                    foundChild = FindChild<T>(child, childName);
+
+                    // If the child is found, break so we do not overwrite the found child. 
+                    if (foundChild != null) break;
+                }
+                else if (!string.IsNullOrEmpty(childName))
+                {
+                    var frameworkElement = child as FrameworkElement;
+                    // If the child's name is set for search
+                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    {
+                        // if the child's name is of the request name
+                        foundChild = (T)child;
+                        break;
+                    }
+                }
+                else
+                {
+                    // child element found.
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+
+            return foundChild;
         }
 
+
+
+
+
     }
-    internal class InventorMainFrame : System.Windows.Forms.IWin32Window
+   
+        internal class InventorMainFrame : System.Windows.Forms.IWin32Window
     {
         public InventorMainFrame(long hWnd) { m_hWnd = hWnd; }
         public System.IntPtr Handle
@@ -594,5 +684,56 @@ namespace Blastman
             get { return (System.IntPtr)m_hWnd; }
         }
         private long m_hWnd;
+    }
+
+    public class WindowHandleInfo
+    {
+        private delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
+
+        [DllImport("user32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
+
+        private IntPtr _MainHandle;
+
+        public WindowHandleInfo(IntPtr handle)
+        {
+            this._MainHandle = handle;
+        }
+
+        public List<IntPtr> GetAllChildHandles()
+        {
+            List<IntPtr> childHandles = new List<IntPtr>();
+
+            GCHandle gcChildhandlesList = GCHandle.Alloc(childHandles);
+            IntPtr pointerChildHandlesList = GCHandle.ToIntPtr(gcChildhandlesList);
+
+            try
+            {
+                EnumWindowProc childProc = new EnumWindowProc(EnumWindow);
+                EnumChildWindows(this._MainHandle, childProc, pointerChildHandlesList);
+            }
+            finally
+            {
+                gcChildhandlesList.Free();
+            }
+
+            return childHandles;
+        }
+
+        private bool EnumWindow(IntPtr hWnd, IntPtr lParam)
+        {
+            GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
+
+            if (gcChildhandlesList == null || gcChildhandlesList.Target == null)
+            {
+                return false;
+            }
+
+            List<IntPtr> childHandles = gcChildhandlesList.Target as List<IntPtr>;
+            childHandles.Add(hWnd);
+
+            return true;
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Windows;
 
 namespace Blastman
 {
@@ -15,7 +16,14 @@ namespace Blastman
 
     {
         private ObservableCollection<PositionConfiguration> positionlist;
-        
+
+        private string programName;
+        private string programDescription;
+        private int programID;
+        private string author;
+        private int state;
+        private string creationdate;
+        private Inventor.Application inventorApp;
         AssemblyDocument oAssembly;
         AssemblyComponentDefinition oAssemblyDef;
         Parameter oP1_X;
@@ -38,25 +46,51 @@ namespace Blastman
             }
         }
 
-        
+        public string ProgramName { get => programName; set => programName = value; }
+        public string ProgramDescription { get => programDescription; set => programDescription = value; }
+        public string Author { get => author; set => author = value; }
+        public int State { get => state; set => state = value; }
+        public string CreationDate { get => creationdate; set => creationdate = value; }
 
-        public Blastman_program (Inventor.Application inventorApp) 
+        public Blastman_program(Inventor.Application inventorapp)
         {
-            oAssembly = (AssemblyDocument)inventorApp.ActiveDocument;
-            oAssemblyDef = oAssembly.ComponentDefinition;
-            
+            inventorApp = inventorapp;
             positionlist = new ObservableCollection<PositionConfiguration>();
-             oP1_X = oAssemblyDef.Parameters["P1_X"];
-             oP2_Y = oAssemblyDef.Parameters["P2_Y"];
-             oP3_C = oAssemblyDef.Parameters["P3_C"];
-             oP4_Z = oAssemblyDef.Parameters["P4_Z"];
-             oP5_A1 = oAssemblyDef.Parameters["P5_A1"];
-             oP6_A2 = oAssemblyDef.Parameters["P6_A2"];
-             oP7_A3 = oAssemblyDef.Parameters["P7_A3"];
-             oP8_A4 = oAssemblyDef.Parameters["P8_A4"];
-             oSwing_axle = oAssemblyDef.Parameters["swing_axle"];
-        }
 
+            
+
+
+        }
+        public Blastman_program (Inventor.Application inventorapp, string programname, int _state) 
+        {
+            inventorApp = inventorapp;
+            programName = programname;
+            
+            state = _state;
+            positionlist = new ObservableCollection<PositionConfiguration>();
+            MapParameters();
+        }
+        public void MapParameters()
+        {
+            try
+            {
+                oAssembly = (AssemblyDocument)inventorApp.ActiveDocument;
+                oAssemblyDef = oAssembly.ComponentDefinition;
+                oP1_X = oAssemblyDef.Parameters["P1_X"];
+                oP2_Y = oAssemblyDef.Parameters["P2_Y"];
+                oP3_C = oAssemblyDef.Parameters["P3_C"];
+                oP4_Z = oAssemblyDef.Parameters["P4_Z"];
+                oP5_A1 = oAssemblyDef.Parameters["P5_A1"];
+                oP6_A2 = oAssemblyDef.Parameters["P6_A2"];
+                oP7_A3 = oAssemblyDef.Parameters["P7_A3"];
+                oP8_A4 = oAssemblyDef.Parameters["P8_A4"];
+                oSwing_axle = oAssemblyDef.Parameters["swing_axle"];
+            }
+            catch
+            {
+                throw new Exception("Nebol otvorený správny model. Nedošlo k previazaniu parametrov.");
+            }
+        }
         public void MoveToSliders(double p1_X, double p2_Y, double p3_C, double p4_Z, double p5_A1, double p6_A2, double p7_A3, double p8_A4)
         {
             
@@ -240,7 +274,26 @@ namespace Blastman
            
         }
         
+        public void Save(bool ShowResultMessageBox)
+        {
+            author = AddinGlobal.CurrentUser;
+            cldDB.P_VYMAZANIEDATPROGRAMU(programName);
+            try
+            {
+                cldDB.P_PROGRAM_UPDATE(programName, author, programDescription);
+                foreach (PositionConfiguration oPosition in positionlist)
+                {
+                    cldDB.P_POSITION_INS(programName, oPosition.PositionNumber, oPosition.Time_or_axle, oPosition.Joint_speed, oPosition.Blasting_state, oPosition.Swing_axle, oPosition.Swing_angle, oPosition.Swing_speed, oPosition.oDof.P1_X, oPosition.oDof.P2_Y, oPosition.oDof.P3_C, oPosition.oDof.P4_Z, oPosition.oDof.P5_A1, oPosition.oDof.P6_A2, oPosition.oDof.P7_A3, oPosition.oDof.P8_A4);
+                }
+                if (ShowResultMessageBox)
+                    MessageBox.Show("Program bol úspešne uložený do databázy.");
 
+            }
+            catch
+            {
+
+            }
+        }
 
 
     }

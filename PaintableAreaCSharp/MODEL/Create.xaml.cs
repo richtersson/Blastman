@@ -20,6 +20,7 @@ using _3Dconnexion;
 using System.Windows.Interop;
 using System.IO;
 using Blastman.Properties;
+using System.Windows.Forms;
 
 namespace Blastman
 {
@@ -46,23 +47,30 @@ namespace Blastman
         private double p7_A3;
         private double p8_A4;
         private int totalprogramtime;
-        
+        private string programname;
 
 
+
+        #region Properties
         public Blastman_program oBlastmanProgram { get => _oBlastmanProgram; set => _oBlastmanProgram = value; }
-        
-        public ObservableCollection<PositionConfiguration> oPositionList { get => _positionList; set
+
+
+
+
+        public ObservableCollection<PositionConfiguration> oPositionList
+        {
+            get => _positionList; set
             {
                 if (value != _positionList)
                 {
                     _positionList = value;
                     OnPropertyChanged("oPositionList");
 
-                   
+
                 }
             }
         }
-        
+
         public double P1_X
         {
             get => p1_X;
@@ -75,7 +83,7 @@ namespace Blastman
 
                     try
                     {
-                        oBlastmanProgram.MoveToSliders(p1_X,p2_Y,p3_C,p4_Z,p5_A1,p6_A2,p7_A3,p8_A4);
+                        oBlastmanProgram.MoveToSliders(p1_X, p2_Y, p3_C, p4_Z, p5_A1, p6_A2, p7_A3, p8_A4);
                     }
                     catch
                     { }
@@ -102,7 +110,7 @@ namespace Blastman
 
         public double P3_C
         {
-            get => p3_C ; set
+            get => p3_C; set
             {
                 if (value != p3_C)
                 {
@@ -157,7 +165,7 @@ namespace Blastman
             {
                 if (value != p6_A2)
                 {
-                    p6_A2 = value; 
+                    p6_A2 = value;
                     OnPropertyChanged("P6_A2");
                     try
                     {
@@ -202,7 +210,9 @@ namespace Blastman
                 }
             }
         }
-        public string Time_or_axle { get => time_or_axle; set
+        public string Time_or_axle
+        {
+            get => time_or_axle; set
             {
                 if (value != time_or_axle)
                 {
@@ -212,7 +222,9 @@ namespace Blastman
                 }
             }
         }
-        public string Joint_speed { get => joint_speed; set
+        public string Joint_speed
+        {
+            get => joint_speed; set
             {
                 if (value != joint_speed)
                 {
@@ -222,7 +234,9 @@ namespace Blastman
                 }
             }
         }
-        public string Blasting_state { get => blasting_state; set
+        public string Blasting_state
+        {
+            get => blasting_state; set
             {
                 if (value != blasting_state)
                 {
@@ -232,7 +246,9 @@ namespace Blastman
                 }
             }
         }
-        public string Swing_axle { get => swing_axle; set
+        public string Swing_axle
+        {
+            get => swing_axle; set
             {
                 if (value != swing_axle)
                 {
@@ -242,7 +258,9 @@ namespace Blastman
                 }
             }
         }
-        public string Swing_angle { get => swing_angle; set
+        public string Swing_angle
+        {
+            get => swing_angle; set
             {
                 if (value != swing_angle)
                 {
@@ -252,7 +270,9 @@ namespace Blastman
                 }
             }
         }
-        public string Swing_speed { get => swing_speed; set
+        public string Swing_speed
+        {
+            get => swing_speed; set
             {
                 if (value != swing_speed)
                 {
@@ -263,7 +283,9 @@ namespace Blastman
             }
         }
 
-        public int TotalProgramTime { get => totalprogramtime; set
+        public int TotalProgramTime
+        {
+            get => totalprogramtime; set
             {
                 if (value != totalprogramtime)
                 {
@@ -274,11 +296,25 @@ namespace Blastman
             }
         }
 
-        public Create()
+        public string ProgramName
+        {
+            get => programname; set
+            {
+                if (value != programname)
+                {
+                    programname = value;
+                    OnPropertyChanged("ProgramName");
+
+                }
+            }
+        } 
+        #endregion
+
+        public Create(Blastman_program blastmanprogram)
         {
             InitializeComponent();
-            _oBlastmanProgram = new Blastman_program(AddinGlobal.InventorApp);
-            
+            _oBlastmanProgram = blastmanprogram;
+            programname = _oBlastmanProgram.ProgramName;
             _positionList = _oBlastmanProgram.PositionList;
             time_or_axle = "1";
             joint_speed = "0";
@@ -429,7 +465,7 @@ namespace Blastman
             res = SiApp.SiInitialize();
             if (res != SiApp.SpwRetVal.SPW_NO_ERROR)
             {
-                MessageBox.Show("Initialize function failed");
+                System.Windows.MessageBox.Show("Initialize function failed");
                 return false;
             }
 
@@ -438,12 +474,12 @@ namespace Blastman
             SiApp.SiOpenData openData = new SiApp.SiOpenData();
             SiApp.SiOpenWinInit(openData, hWnd);
             if (openData.hWnd == IntPtr.Zero)
-                MessageBox.Show("Handle is empty");
+                System.Windows.MessageBox.Show("Handle is empty");
             Log("SiOpenWinInit", openData.hWnd + "(window handle)");
 
             devHdl = SiApp.SiOpen(appName, SiApp.SI_ANY_DEVICE, IntPtr.Zero, SiApp.SI_EVENT, openData);
             if (devHdl == IntPtr.Zero)
-                MessageBox.Show("Open returns empty device handle");
+                System.Windows.MessageBox.Show("Open returns empty device handle");
             Log("SiOpen", devHdl + "(device handle)");
 
             return (devHdl != IntPtr.Zero);
@@ -548,5 +584,45 @@ namespace Blastman
         {
             oBlastmanProgram.MoveToSliders(0, 0, 0, 0, 0, 0, 0, 0);
         }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            oBlastmanProgram.Save(true);
+            
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            if (oBlastmanProgram.State==0)
+            {
+               
+                MessageBoxResult result = System.Windows.MessageBox.Show("Chcete uložiť zmeny?", "Upozornenie", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Do this
+                
+                    this.Close();
+                    oBlastmanProgram.Save(false);
+                    AddinGlobal.InventorApp.ActiveDocument.Save();
+                    AddinGlobal.InventorApp.ActiveDocument.Close();
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    this.Close();
+                    AddinGlobal.InventorApp.ActiveDocument.Close();
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+
+                }
+            }
+            else
+            {
+                this.Close();
+
+                AddinGlobal.InventorApp.ActiveDocument.Close();
+            }
+        }
+        
     }
 }

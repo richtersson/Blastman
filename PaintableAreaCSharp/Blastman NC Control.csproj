@@ -100,6 +100,12 @@
     <Compile Include="MODEL\Create.xaml.cs">
       <DependentUpon>Create.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\EditWPF.xaml.cs">
+      <DependentUpon>EditWPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\NewProgram.xaml.cs">
+      <DependentUpon>NewProgram.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MODEL\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -307,6 +313,14 @@
     <Page Include="MODEL\Create.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MODEL\EditWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MODEL\NewProgram.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MODEL\Login.xaml">
       <SubType>Designer</SubType>

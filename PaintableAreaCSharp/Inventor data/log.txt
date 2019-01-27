@@ -1,3 +1,0 @@
-14.12.2018 23:48:53: Function SiInitialize returns SPW_NO_ERROR
-14.12.2018 23:48:53: Function SiOpenWinInit returns 986656(window handle)
-14.12.2018 23:48:53: Function SiOpen returns 2163936871216(device handle)
