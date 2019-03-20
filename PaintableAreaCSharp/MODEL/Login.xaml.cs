@@ -36,6 +36,8 @@ namespace Blastman
 
                 this.Close();
             }
+            else
+                throw new Exception("Zadajte meno a heslo.");
         }
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)

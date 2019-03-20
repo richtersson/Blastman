@@ -6,9 +6,12 @@
     xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
     xmlns:local="clr-namespace:Blastman"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Title="Login"
-    Width="575.833"
-    Height="417.161"
+    Width="700"
+    Height="500"
+    MinWidth="500"
+    MinHeight="400"
     Background="#225186"
     FontSize="14"
     Initialized="Window_Initialized"
@@ -19,6 +22,21 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
+        <CollectionViewSource
+            x:Key="cvsoProgramList"
+            Filter="CollectionViewSource_Filter"
+            Source="{Binding ProgramList}">
+            <CollectionViewSource.SortDescriptions>
+                <!--  Requires 'xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"' declaration.  -->
+                <scm:SortDescription PropertyName="CreationDate" />
+                <!--<scm:SortDescription PropertyName="Complete" />
+                <scm:SortDescription PropertyName="DueDate" />-->
+            </CollectionViewSource.SortDescriptions>
+            <!--<CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="ProjectName" />
+                <PropertyGroupDescription PropertyName="Complete" />
+            </CollectionViewSource.GroupDescriptions>-->
+        </CollectionViewSource>
         <Style x:Key="ActionButtons" TargetType="Button">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Height" Value="35" />
@@ -37,13 +55,14 @@
             x:Key="MyDataGridCell"
             BasedOn="{StaticResource {x:Type DataGridCell}}"
             TargetType="DataGridCell">
-            <Setter Property="Background" Value="#225186" />
+            <Setter Property="Background" Value="#545d6a" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="BorderThickness" Value="0" />
+
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="Red" />
+                    <Setter Property="Background" Value="#4E4E4E" />
                     <Setter Property="Foreground" Value="White" />
                 </Trigger>
             </Style.Triggers>
@@ -137,7 +156,7 @@
                 LastChildFill="True">
                 <Label
                     HorizontalAlignment="Left"
-                    Content="Zoznam neexportovaných programov"
+                    Content="Zoznam neúplných programov"
                     DockPanel.Dock="Top"
                     FontSize="15"
                     Foreground="White" />
@@ -146,7 +165,7 @@
                     x:Name="dtgProgramList"
                     Grid.ColumnSpan="10"
                     CellStyle="{StaticResource MyDataGridCell}"
-                    ItemsSource="{Binding ProgramList, diag:PresentationTraceSources.TraceLevel=High}"
+                    ItemsSource="{Binding Source={StaticResource cvsoProgramList}, diag:PresentationTraceSources.TraceLevel=High}"
                     RowHeaderWidth="0"
                     Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Resources>
@@ -172,11 +191,7 @@
                             Binding="{Binding CreationDate}"
                             Header="Dátum vytvorenia"
                             IsReadOnly="True" />
-                        <DataGridTextColumn
-                            Width="auto"
-                            Binding="{Binding State}"
-                            Header="Stav"
-                            IsReadOnly="True" />
+
 
                     </DataGrid.Columns>
                 </DataGrid>

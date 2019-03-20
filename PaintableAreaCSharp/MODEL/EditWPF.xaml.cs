@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using System.Windows.Data;
 
 namespace Blastman
 {
@@ -95,7 +96,10 @@ namespace Blastman
 
         private void TxtFind_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            FilterPointsTableHidingRows(txtFind.Text);
+           
+                // Refresh the view to apply filters.
+                CollectionViewSource.GetDefaultView(dtgProgramList.ItemsSource).Refresh();
+           
         }
         private void FilterPointsTableHidingRows(string filterstring)
         {
@@ -162,6 +166,20 @@ namespace Blastman
         {
            
         }
+       
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            Blastman_program t = e.Item as Blastman_program;
+            if (t != null)
+            // If filter is turned on, filter completed items.
+            {
+                if (t.ProgramName.Contains(txtFind.Text))
+                    e.Accepted = true;
+                else
+                    e.Accepted = false;
+            }
+        }
 
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
@@ -175,6 +193,16 @@ namespace Blastman
                     AddinGlobal.InventorApp.Documents.Open(ModelPath);
                     oProgram.MapParameters();
                     this.Close();
+                    DataTable dtPositions = cldDB.P_POSITION_SEL(oProgram.ProgramName);
+                    foreach (DataRow row in dtPositions.Rows)
+                    {
+                        
+
+                        oProgram.PositionList.Add(new PositionConfiguration(AddinGlobal.InventorApp, (int)row["positionNumber"],(double)row["P1_X"], (double)row["P2_Y"], (double)row["P3_C"], (double)row["P4_Z"], (double)row["P5_A1"], (double)row["P6_A2"], (double)row["P7_A3"], (double)row["P8_A4"], (string)row["time_or_axle"], (string)row["joint_speed"], (string)row["blasting_state"], (string)row["swing_axle"], (string)row["swing_angle"], (string)row["swing_speed"]));
+
+
+                    }
+
 
                     Create oCreate = new Create(oProgram);
                     oCreate.Show();
@@ -184,6 +212,11 @@ namespace Blastman
 
 
             }
+        }
+
+        private void CollectionViewSource_Filter_1(object sender, FilterEventArgs e)
+        {
+
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Blastman
                 throw new Exception("Nesprávne prihlasovacie údaje."); 
         }
 
-        public static void P_PROGRAM_INSERT(string ProgramName)
+        public static void P_PROGRAM_INSERT(string ProgramName, string CreationDate)
         {
             SqlConnection cn_connection;
             try
@@ -85,6 +85,7 @@ namespace Blastman
             cmd_Command.CommandType = CommandType.StoredProcedure;
             cmd_Command.CommandText = ("P_PROGRAM_INS");
             cmd_Command.Parameters.Add("@name", SqlDbType.NVarChar, 50).Value = ProgramName;
+            cmd_Command.Parameters.Add("@creationDate", SqlDbType.NVarChar, 50).Value = CreationDate;
             cmd_Command.Parameters.Add("@P_SQLCODE", SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
             cmd_Command.Parameters.Add("@P_SQLERRM", SqlDbType.NVarChar,500).Direction = System.Data.ParameterDirection.Output;
 
@@ -290,6 +291,54 @@ namespace Blastman
 
 
         }
+        public static DataTable P_POSITION_SEL(string ProgramName)
+        {
+            SqlConnection cn_connection;
+            try
+            {
+                cn_connection = Get_DB_Connection();
+
+            }
+            catch
+            {
+                throw new Exception("Problém s pripojením k databázi. Kontaktujte podporu.");
+
+            }
+
+            SqlCommand cmd_Command = cn_connection.CreateCommand();
+            cmd_Command.CommandType = CommandType.StoredProcedure;
+            cmd_Command.CommandText = ("P_POSITION_SEL");
+            cmd_Command.Parameters.Add("@name", SqlDbType.NVarChar, 50).Value = ProgramName;
+            cmd_Command.Parameters.Add("@P_SQLCODE", SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
+            cmd_Command.Parameters.Add("@P_SQLERRM", SqlDbType.NVarChar, 500).Direction = System.Data.ParameterDirection.Output;
+
+
+            DataTable dt = new DataTable();
+            try
+            {
+
+                SqlDataReader rdr = cmd_Command.ExecuteReader();
+                dt.Load(rdr);
+                return dt;
+
+
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Problém s pripojením na databázu. Kontaktuje svojho administrátora." + Environment.NewLine + exp.Message
+
+                    );
+                return null;
+            }
+            finally
+            {
+                cn_connection.Close();
+            }
+
+
+
+
+        }
         public static void P_POSITION_INS(string programname, int positionnumber, string time_or_axle, string joint_speed, string blasting_state, string swing_axle, string swing_angle, string swing_speed, double p1, double p2, double p3, double p4, double p5, double p6, double p7, double p8)
         {
             SqlConnection cn_connection;
@@ -309,12 +358,12 @@ namespace Blastman
             cmd_Command.CommandText = ("P_POSITION_INS");
             cmd_Command.Parameters.Add("@name", SqlDbType.NVarChar, 50).Value = programname;
             cmd_Command.Parameters.Add("@positionNumber", SqlDbType.Int).Value = positionnumber;
-            cmd_Command.Parameters.Add("@swing_angle", SqlDbType.NVarChar, 10).Value = swing_axle;
+            cmd_Command.Parameters.Add("@swing_angle", SqlDbType.NVarChar, 10).Value = swing_angle;
             cmd_Command.Parameters.Add("@swing_axle", SqlDbType.NVarChar, 10).Value = swing_axle;
-            cmd_Command.Parameters.Add("@swing_speed", SqlDbType.NVarChar, 10).Value = swing_axle;
-            cmd_Command.Parameters.Add("@time_or_axle", SqlDbType.NVarChar, 10).Value = swing_axle;
-            cmd_Command.Parameters.Add("@blasting_state", SqlDbType.NVarChar, 10).Value = swing_axle;
-            cmd_Command.Parameters.Add("@joint_speed", SqlDbType.NVarChar, 10).Value = swing_axle;
+            cmd_Command.Parameters.Add("@swing_speed", SqlDbType.NVarChar, 10).Value = swing_speed;
+            cmd_Command.Parameters.Add("@time_or_axle", SqlDbType.NVarChar, 10).Value = int.Parse(time_or_axle).ToString();
+            cmd_Command.Parameters.Add("@blasting_state", SqlDbType.NVarChar, 10).Value = blasting_state;
+            cmd_Command.Parameters.Add("@joint_speed", SqlDbType.NVarChar, 10).Value = joint_speed;
             cmd_Command.Parameters.Add("@P1", SqlDbType.Float).Value = p1;
             cmd_Command.Parameters.Add("@P2", SqlDbType.Float).Value = p2;
             cmd_Command.Parameters.Add("@P3", SqlDbType.Float).Value = p3;

@@ -79,13 +79,15 @@ namespace Blastman
                         string newAssemblyFile = AddinGlobal.BlastmanModelFolder + @"\" + txtProgram.Text + @"\" + txtProgram.Text + ".iam";
                         System.IO.File.Copy(AddinGlobal.BlastmanModelFolder + @"\Library\Blastman_PS2.iam", newAssemblyFile);
 
-                        cldDB.P_PROGRAM_INSERT(txtProgram.Text);
+                        cldDB.P_PROGRAM_INSERT(txtProgram.Text, DateTime.Now.ToShortDateString());
                         this.Close();
                         AssemblyDocument oAssemblyDoc = (AssemblyDocument)AddinGlobal.InventorApp.Documents.Open(newAssemblyFile);
                         Matrix oPositionMatrix = AddinGlobal.InventorApp.TransientGeometry.CreateMatrix();
                         ComponentOccurrence oMachinedComp = oAssemblyDoc.ComponentDefinition.Occurrences.Add(ModelPath, oPositionMatrix);
+                    AddinGlobal.InventorApp.SilentOperation = true;
                         oAssemblyDoc.Save2();
-                        Blastman_program oBlastman = new Blastman_program(AddinGlobal.InventorApp, txtProgram.Text,0);
+                    AddinGlobal.InventorApp.SilentOperation = false;
+                    Blastman_program oBlastman = new Blastman_program(AddinGlobal.InventorApp, txtProgram.Text,0);
 
                         Create oCreate = new Create(oBlastman);
                         oCreate.Show();

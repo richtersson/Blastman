@@ -602,9 +602,14 @@ namespace Blastman
                     // Do this
                 
                     this.Close();
+                    AddinGlobal.InventorApp.SilentOperation = true;
                     oBlastmanProgram.Save(false);
-                    AddinGlobal.InventorApp.ActiveDocument.Save();
+                    
+                    
+                    AddinGlobal.InventorApp.ActiveDocument.Save2();
                     AddinGlobal.InventorApp.ActiveDocument.Close();
+                    AddinGlobal.InventorApp.SilentOperation = false;
+
                 }
                 else if (result == MessageBoxResult.No)
                 {
@@ -623,6 +628,11 @@ namespace Blastman
                 AddinGlobal.InventorApp.ActiveDocument.Close();
             }
         }
-        
+
+        //private void SliderP1_X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    oBlastmanProgram.MoveDirectly(-e.NewValue/10);
+            
+        //}
     }
 }

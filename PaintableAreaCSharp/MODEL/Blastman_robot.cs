@@ -26,7 +26,7 @@ namespace Blastman
         private Inventor.Application inventorApp;
         AssemblyDocument oAssembly;
         AssemblyComponentDefinition oAssemblyDef;
-        Parameter oP1_X;
+        public Parameter oP1_X;
         Parameter oP2_Y;
         Parameter oP3_C;
         Parameter oP4_Z;
@@ -121,6 +121,11 @@ namespace Blastman
 
 
             return true;
+        }
+        public void MoveDirectly(double input)
+        {
+            oP1_X.Value = input;
+            oAssembly.Update();
         }
         private string GetXMLText()
         {
@@ -284,6 +289,7 @@ namespace Blastman
                 foreach (PositionConfiguration oPosition in positionlist)
                 {
                     cldDB.P_POSITION_INS(programName, oPosition.PositionNumber, oPosition.Time_or_axle, oPosition.Joint_speed, oPosition.Blasting_state, oPosition.Swing_axle, oPosition.Swing_angle, oPosition.Swing_speed, oPosition.oDof.P1_X, oPosition.oDof.P2_Y, oPosition.oDof.P3_C, oPosition.oDof.P4_Z, oPosition.oDof.P5_A1, oPosition.oDof.P6_A2, oPosition.oDof.P7_A3, oPosition.oDof.P8_A4);
+                    
                 }
                 if (ShowResultMessageBox)
                     MessageBox.Show("Program bol úspešne uložený do databázy.");
