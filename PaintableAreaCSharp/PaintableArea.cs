@@ -138,7 +138,7 @@ namespace Blastman
                     UserInterfaceManager uiMan = AddinGlobal.InventorApp.UserInterfaceManager;
                     if (uiMan.InterfaceStyle == InterfaceStyleEnum.kRibbonInterface) //kClassicInterface support can be added if necessary.
                     {
-                        //ribbon in part
+                        //ribbon in assembly
                         Inventor.Ribbon ribbon = uiMan.Ribbons["Assembly"];
                         RibbonTab tab = ribbon.RibbonTabs["id_TabAssemble"]; //Change it if necessary.
 
@@ -153,7 +153,7 @@ namespace Blastman
 
                         CommandControls cmdCtrls = AddinGlobal.RibbonPanel.CommandControls;
                         cmdCtrls.AddButton(button1.ButtonDef, button1.DisplayBigIcon, button1.DisplayText, "", button1.InsertBeforeTarget);
-                        cmdCtrls.AddButton(TabulkaRezovButton.ButtonDef, TabulkaRezovButton.DisplayBigIcon, TabulkaRezovButton.DisplayText, "", TabulkaRezovButton.InsertBeforeTarget);
+                        
 
 
                         //ribbon in zerodoc
@@ -172,7 +172,7 @@ namespace Blastman
                         cmdCtrls2.AddButton(NewButton.ButtonDef, NewButton.DisplayBigIcon, NewButton.DisplayText, "", NewButton.InsertBeforeTarget);
                         
                         cmdCtrls2.AddButton(EditButton.ButtonDef, EditButton.DisplayBigIcon, EditButton.DisplayText, "", EditButton.InsertBeforeTarget);
-                        cmdCtrls2.AddButton(ViewButton.ButtonDef, ViewButton.DisplayBigIcon, ViewButton.DisplayText, "", ViewButton.InsertBeforeTarget);
+                        //cmdCtrls2.AddButton(ViewButton.ButtonDef, ViewButton.DisplayBigIcon, ViewButton.DisplayText, "", ViewButton.InsertBeforeTarget);
                         
                         
                         
@@ -232,6 +232,7 @@ namespace Blastman
             AddinGlobal.InventorApp = null;
             AddinGlobal.RibbonPanel = null;
             AddinGlobal.ButtonList = null;
+            AddinGlobal.AktivnyBlastmanProgram = null;
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -287,12 +288,12 @@ namespace Blastman
         {
             BeforeOrAfter = EventTimingEnum.kBefore;
             HandlingCode = Inventor.HandlingCodeEnum.kEventHandled;
-            try
-            {
-                AddinGlobal.UnMapDrive();
-            }
-            catch
-            { }
+            //try
+            //{
+            //    AddinGlobal.UnMapDrive();
+            //}
+            //catch
+            //{ }
         }
 
 

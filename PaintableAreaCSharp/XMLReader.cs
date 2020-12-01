@@ -19,13 +19,11 @@ namespace Blastman
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(XMLPath);
-            XmlNode node = doc.DocumentElement.SelectSingleNode("/Settings/Server");
-            Ip = node.Attributes["IP"]?.InnerText;
-            DatabaseUserName = node.Attributes["DatabaseUserName"]?.InnerText;
-            P_APV_KOD=node.Attributes["P_APV_KOD"]?.InnerText;
-            P_UZI_KARTA_ID= node.Attributes["P_UZI_KARTA_ID"]?.InnerText;
+            XmlNode node = doc.DocumentElement.SelectSingleNode("/Settings/Blastman");
+            AddinGlobal.BlastmanModelFolder = node.Attributes["Folder"]?.InnerText;
+            AddinGlobal.DatabasePath = node.Attributes["Database"]?.InnerText;
 
-           
+
         }
         public static string AssemblyDirectory
         {

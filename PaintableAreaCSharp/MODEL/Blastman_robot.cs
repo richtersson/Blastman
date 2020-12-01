@@ -9,10 +9,10 @@ using System.Windows;
 
 namespace Blastman
 {
-    
 
-    
-    public class Blastman_program 
+
+
+    public class Blastman_program
 
     {
         private ObservableCollection<PositionConfiguration> positionlist;
@@ -36,12 +36,14 @@ namespace Blastman
         Parameter oP8_A4;
         Parameter oSwing_axle;
 
-        public ObservableCollection<PositionConfiguration> PositionList { get => positionlist; set
+        public ObservableCollection<PositionConfiguration> PositionList
+        {
+            get => positionlist; set
             {
                 if (value != positionlist)
                 {
                     positionlist = value;
-                   
+
                 }
             }
         }
@@ -57,15 +59,15 @@ namespace Blastman
             inventorApp = inventorapp;
             positionlist = new ObservableCollection<PositionConfiguration>();
 
-            
+
 
 
         }
-        public Blastman_program (Inventor.Application inventorapp, string programname, int _state) 
+        public Blastman_program(Inventor.Application inventorapp, string programname, int _state)
         {
             inventorApp = inventorapp;
             programName = programname;
-            
+
             state = _state;
             positionlist = new ObservableCollection<PositionConfiguration>();
             MapParameters();
@@ -93,16 +95,16 @@ namespace Blastman
         }
         public void MoveToSliders(double p1_X, double p2_Y, double p3_C, double p4_Z, double p5_A1, double p6_A2, double p7_A3, double p8_A4)
         {
-            
-            oP1_X.Value = -p1_X/10;
-            oP2_Y.Value = -p2_Y/10;
-            oP3_C.Value = p3_C / 180* Math.PI;
-            oP4_Z.Value = p4_Z/10;
+
+            oP1_X.Value = -p1_X / 10;
+            oP2_Y.Value = -p2_Y / 10;
+            oP3_C.Value = p3_C / 180 * Math.PI;
+            oP4_Z.Value = p4_Z / 10;
             oP5_A1.Value = p5_A1 / 180 * Math.PI;
             oP6_A2.Value = p6_A2 / 180 * Math.PI;
             oP7_A3.Value = p7_A3 / 180 * Math.PI;
             oP8_A4.Value = p8_A4 / 180 * Math.PI;
-            
+
 
             oAssembly.Update();
         }
@@ -154,18 +156,18 @@ namespace Blastman
             }
 
 
-            
+
             int i = 1;
-            string finalText=header;
+            string finalText = header;
             foreach (PositionConfiguration oPosition in this.positionlist)
             {
                 string point;
-                point = "<!--Point: " + i +"-->" + System.Environment.NewLine;
+                point = "<!--Point: " + i + "-->" + System.Environment.NewLine;
                 i++;
                 point += "<point" + System.Environment.NewLine;
                 point += @"type=""1""" + System.Environment.NewLine;
                 point += @"j1=""" + Math.Round(-oPosition.oDof.P1_X * 100).ToString() + @"""" + System.Environment.NewLine;
-                point += @"j2=""" + Math.Round(-oPosition.oDof.P2_Y* 100).ToString() + @"""" + System.Environment.NewLine;
+                point += @"j2=""" + Math.Round(-oPosition.oDof.P2_Y * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"j3=""" + Math.Round(oPosition.oDof.P3_C * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"j4=""" + Math.Round(oPosition.oDof.P4_Z * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"j5=""" + Math.Round(oPosition.oDof.P5_A1 * 100).ToString() + @"""" + System.Environment.NewLine;
@@ -187,48 +189,61 @@ namespace Blastman
         }
         public void PlayProgram()
         {
-            for (int i = 0; i < positionlist.Count-1 ; i++)
+            for (int i = 0; i < positionlist.Count - 1; i++)
             {
-                 RunBetweenPositions(positionlist[i], positionlist[i + 1]);
-                
+                RunBetweenPositions(positionlist[i], positionlist[i + 1]);
+
 
             }
         }
         private void RunBetweenPositions(PositionConfiguration firstposition, PositionConfiguration secondposition)
         {
-            double oStartPositionP1= firstposition.oDof.P1_X/10;
-            double oStartPositionP2 = firstposition.oDof.P2_Y / 10;
-            double oStartPositionP3 = firstposition.oDof.P3_C / 180 * Math.PI;
-            double oStartPositionP4 = firstposition.oDof.P4_Z / 10;
-            double oStartPositionP5 = firstposition.oDof.P5_A1 / 180 * Math.PI;
-            double oStartPositionP6 = firstposition.oDof.P6_A2 / 180 * Math.PI;
-            double oStartPositionP7 = firstposition.oDof.P7_A3 / 180 * Math.PI;
-            double oStartPositionP8 = firstposition.oDof.P8_A4 / 180 * Math.PI;
+            foreach (ComponentOccurrence oOcc in oAssemblyDef.Occurrences)
+            {
+                if (oOcc.Name == "Pieskovy_luc:1")
+                {
+                    if (secondposition.Blasting_state == "1")
+                        oOcc.Visible = true;
+                    else oOcc.Visible = false;
+                }
+            }
+
+            double linearcoeficient = 10;
+            double angularcoeficient = 180 * Math.PI;
+
+            double oStartPositionP1 = firstposition.oDof.P1_X / linearcoeficient;
+            double oStartPositionP2 = firstposition.oDof.P2_Y / linearcoeficient;
+            double oStartPositionP3 = firstposition.oDof.P3_C / angularcoeficient;
+            double oStartPositionP4 = firstposition.oDof.P4_Z / linearcoeficient;
+            double oStartPositionP5 = firstposition.oDof.P5_A1 / angularcoeficient;
+            double oStartPositionP6 = firstposition.oDof.P6_A2 / angularcoeficient;
+            double oStartPositionP7 = firstposition.oDof.P7_A3 / angularcoeficient;
+            double oStartPositionP8 = firstposition.oDof.P8_A4 / angularcoeficient;
 
 
             oP1_X.Value = -oStartPositionP1;
             oP2_Y.Value = -oStartPositionP2;
-            oP3_C.Value = oStartPositionP3;
+            oP3_C.Value = oStartPositionP3 * 10;
             oP4_Z.Value = oStartPositionP4;
-            oP5_A1.Value = oStartPositionP5;
-            oP6_A2.Value = oStartPositionP6;
-            oP7_A3.Value = oStartPositionP7;
-            oP8_A4.Value = oStartPositionP8;
+            oP5_A1.Value = oStartPositionP5 * 10;
+            oP6_A2.Value = oStartPositionP6 * 10;
+            oP7_A3.Value = oStartPositionP7 * 10;
+            oP8_A4.Value = oStartPositionP8 * 10;
 
-            double oLimitPositionP1 = secondposition.oDof.P1_X/10;
-            double oLimitPositionP2 = secondposition.oDof.P2_Y / 10;
-            double oLimitPositionP3 = secondposition.oDof.P3_C / 180 * Math.PI; 
-            double oLimitPositionP4 = secondposition.oDof.P4_Z / 10;
-            double oLimitPositionP5 = secondposition.oDof.P5_A1 / 180 * Math.PI; 
-            double oLimitPositionP6 = secondposition.oDof.P6_A2 / 180 * Math.PI; 
-            double oLimitPositionP7 = secondposition.oDof.P7_A3 / 180 * Math.PI; 
-            double oLimitPositionP8 = secondposition.oDof.P8_A4 / 180 * Math.PI; 
+            double oLimitPositionP1 = secondposition.oDof.P1_X / linearcoeficient;
+            double oLimitPositionP2 = secondposition.oDof.P2_Y / linearcoeficient;
+            double oLimitPositionP3 = secondposition.oDof.P3_C / angularcoeficient;
+            double oLimitPositionP4 = secondposition.oDof.P4_Z / linearcoeficient;
+            double oLimitPositionP5 = secondposition.oDof.P5_A1 / angularcoeficient;
+            double oLimitPositionP6 = secondposition.oDof.P6_A2 / angularcoeficient;
+            double oLimitPositionP7 = secondposition.oDof.P7_A3 / angularcoeficient;
+            double oLimitPositionP8 = secondposition.oDof.P8_A4 / angularcoeficient;
 
 
             double oStep;
-            int oDelay = Convert.ToInt16(firstposition.Time_or_axle) *1000/100;
+            int oDelay = Convert.ToInt16(firstposition.Time_or_axle) * 1000 / 100;
 
-            double distanceP1 = Math.Abs(oStartPositionP1-oLimitPositionP1);
+            double distanceP1 = Math.Abs(oStartPositionP1 - oLimitPositionP1);
             double distanceP2 = Math.Abs(oStartPositionP2 - oLimitPositionP2);
             double distanceP3 = Math.Abs(oStartPositionP3 - oLimitPositionP3);
             double distanceP4 = Math.Abs(oStartPositionP4 - oLimitPositionP4);
@@ -259,12 +274,14 @@ namespace Blastman
                 System.Threading.Thread.Sleep(oDelay);
                 oP1_X.Value -= distanceP1 / speed;
                 oP2_Y.Value -= distanceP2 / speed;
-                oP3_C.Value += (distanceP3 / 180 * Math.PI)/speed;
+                oP3_C.Value += (distanceP3) * 10 / speed;
                 oP4_Z.Value += distanceP4 / speed;
-                oP5_A1.Value += (distanceP5 / 180 * Math.PI) / speed;
-                oP6_A2.Value += (distanceP6 / 180 * Math.PI) / speed;
-                oP7_A3.Value += (distanceP7 / 180 * Math.PI) / speed;
-                oP8_A4.Value += (distanceP8 / 180 * Math.PI) / speed;
+                oP5_A1.Value += (distanceP5) * 10 / speed;
+                oP6_A2.Value += (distanceP6) * 10 / speed;
+                oP7_A3.Value += (distanceP7) * 10 / speed;
+                oP8_A4.Value += (distanceP8) * 10 / speed;
+                //* 180 / Math.PI
+
                 //if (reverse)
                 //    movingparameter.Value -= distance / 100;
                 //else
@@ -272,13 +289,13 @@ namespace Blastman
                 oAssembly.Update();
                 AddinGlobal.InventorApp.ActiveView.Update();
             }
-            
-            
 
-            
-           
+
+
+
+
         }
-        
+
         public void Save(bool ShowResultMessageBox)
         {
             author = AddinGlobal.CurrentUser;
@@ -289,7 +306,7 @@ namespace Blastman
                 foreach (PositionConfiguration oPosition in positionlist)
                 {
                     cldDB.P_POSITION_INS(programName, oPosition.PositionNumber, oPosition.Time_or_axle, oPosition.Joint_speed, oPosition.Blasting_state, oPosition.Swing_axle, oPosition.Swing_angle, oPosition.Swing_speed, oPosition.oDof.P1_X, oPosition.oDof.P2_Y, oPosition.oDof.P3_C, oPosition.oDof.P4_Z, oPosition.oDof.P5_A1, oPosition.oDof.P6_A2, oPosition.oDof.P7_A3, oPosition.oDof.P8_A4);
-                    
+
                 }
                 if (ShowResultMessageBox)
                     MessageBox.Show("Program bol úspešne uložený do databázy.");
@@ -303,7 +320,7 @@ namespace Blastman
 
 
     }
-    public class PositionConfiguration:INotifyPropertyChanged
+    public class PositionConfiguration : INotifyPropertyChanged
     {
         private int positionNumber;
         private DegreesOfFreedom odof;
@@ -314,7 +331,9 @@ namespace Blastman
         private string swing_angle;
         private string swing_speed;
 
-        public int PositionNumber { get => positionNumber; set
+        public int PositionNumber
+        {
+            get => positionNumber; set
             {
                 if (value != positionNumber)
                 {
@@ -332,9 +351,9 @@ namespace Blastman
         public string Swing_angle { get => swing_angle; set => swing_angle = value; }
         public string Swing_speed { get => swing_speed; set => swing_speed = value; }
 
-        public PositionConfiguration(Inventor.Application inventorApp, int positionnumber, double p1, double p2, double p3, double p4, double p5, double p6, double p7, double p8, string _timeoraxle, string _jointspeed, string _blastingstate, string _swingaxle, string _swingangle, string _swingspeed) 
+        public PositionConfiguration(Inventor.Application inventorApp, int positionnumber, double p1, double p2, double p3, double p4, double p5, double p6, double p7, double p8, string _timeoraxle, string _jointspeed, string _blastingstate, string _swingaxle, string _swingangle, string _swingspeed)
         {
-            odof = new DegreesOfFreedom(p1,p2, p3,p4, p5, p6,p7,p8);
+            odof = new DegreesOfFreedom(p1, p2, p3, p4, p5, p6, p7, p8);
             positionNumber = positionnumber;
             time_or_axle = _timeoraxle;
             joint_speed = _jointspeed;
@@ -381,43 +400,57 @@ namespace Blastman
                 OnPropertyChanged("P1_X");
             }
         }
-        public double P2_Y { get => _p2_Y; set
+        public double P2_Y
+        {
+            get => _p2_Y; set
             {
                 _p2_Y = value;
                 OnPropertyChanged("P2_Y");
             }
         }
-        public double P3_C { get => _p3_C; set
+        public double P3_C
+        {
+            get => _p3_C; set
             {
                 _p3_C = value;
                 OnPropertyChanged("P3_C");
             }
         }
-        public double P4_Z { get => _p4_Z; set
+        public double P4_Z
+        {
+            get => _p4_Z; set
             {
                 _p4_Z = value;
                 OnPropertyChanged("P4_Z");
             }
         }
-        public double P5_A1 { get => _p5_A1; set
+        public double P5_A1
+        {
+            get => _p5_A1; set
             {
                 _p5_A1 = value;
                 OnPropertyChanged("P5_A1");
             }
         }
-        public double P6_A2 { get => _p6_A2; set
+        public double P6_A2
+        {
+            get => _p6_A2; set
             {
                 _p6_A2 = value;
                 OnPropertyChanged("P6_A2");
             }
         }
-        public double P7_A3 { get => _p7_A3; set
+        public double P7_A3
+        {
+            get => _p7_A3; set
             {
                 _p7_A3 = value;
                 OnPropertyChanged("P7_A3");
             }
         }
-        public double P8_A4 { get => _p8_A4; set
+        public double P8_A4
+        {
+            get => _p8_A4; set
             {
                 _p8_A4 = value;
                 OnPropertyChanged("P8_A4");

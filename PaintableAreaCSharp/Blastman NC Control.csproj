@@ -97,6 +97,9 @@
     </Compile>
     <Compile Include="MODEL\Blastman_robot.cs" />
     <Compile Include="MODEL\cldDB.cs" />
+    <Compile Include="MODEL\CopyWPF.xaml.cs">
+      <DependentUpon>CopyWPF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MODEL\Create.xaml.cs">
       <DependentUpon>Create.xaml</DependentUpon>
     </Compile>
@@ -310,6 +313,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="MODEL\CopyWPF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MODEL\Create.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -12,7 +12,7 @@ namespace Blastman
 {
     public static class cldDB
     {
-        private static string ConnectionString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\Blastman.mdf; Integrated Security = True";
+        private static string ConnectionString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = " + AddinGlobal.DatabasePath + "; Integrated Security = True";
 
         public static SqlConnection Get_DB_Connection()
 

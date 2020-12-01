@@ -183,10 +183,10 @@
 
                 <Slider
                     x:Name="sliderP5_A1"
-                    Maximum="360"
-                    Minimum="-360"
+                    Maximum="90"
+                    Minimum="0"
                     Style="{StaticResource DOFSlider}"
-                    TickFrequency="100"
+                    TickFrequency="5"
                     Value="{Binding P5_A1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <DockPanel>
                     <Label Content="Otáčanie druhého ramena (P6_A2)" Style="{StaticResource DOFText}" />
@@ -335,11 +335,11 @@
                             Click="BtnSave_Click"
                             Content="Uložiť"
                             Style="{StaticResource ActionButtons}" />
-                        <Button
+                        <!--<Button
                             x:Name="btnExport"
                             Margin="0,5,5,5"
                             Content="Exportovať"
-                            Style="{StaticResource ActionButtons}" />
+                            Style="{StaticResource ActionButtons}" />-->
                         <Button
                             x:Name="btnPlay"
                             Margin="0,5,5,5"
@@ -354,16 +354,17 @@
                             Click="btnXMLGenerate_Click"
                             Content="Generovať XML"
                             Style="{StaticResource ActionButtons}" />
-
-                    </StackPanel>
-                    <StackPanel>
                         <Button
                             x:Name="btnClose"
-                            Margin="0,0,5,5"
+                            Margin="0,5,5,5"
                             HorizontalAlignment="Right"
                             Click="BtnClose_Click"
                             Content="Zavrieť"
                             Style="{StaticResource ActionButtons}" />
+
+                    </StackPanel>
+                    <StackPanel>
+                        
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" />
                 </DockPanel>
@@ -437,18 +438,55 @@
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Width="auto"
+                                Binding="{Binding Blasting_state}"
+                                FontWeight="Bold"
+                                Header="Blasting"
+                                IsReadOnly="False" />
+
+                            <DataGridTextColumn
+                                Width="auto"
                                 Binding="{Binding Time_or_axle}"
                                 Header="Čas operácie (s)"
-                                IsReadOnly="True" />
+                                IsReadOnly="False" />
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding oDof.P1_X}"
+                                Binding="{Binding oDof.P1_X, StringFormat={}{0:F0}}"
                                 Header="P1_X"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Width="*"
-                                Binding="{Binding oDof.P2_Y}"
+                                Binding="{Binding oDof.P2_Y, StringFormat={}{0:F0}}"
                                 Header="P2_Y"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P3_C, StringFormat={}{0:F0}}"
+                                Header="P3_C"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P4_Z, StringFormat={}{0:F0}}"
+                                Header="P4_Z"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P5_A1, StringFormat={}{0:F0}}"
+                                Header="P5_A1"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P6_A2, StringFormat={}{0:F0}}"
+                                Header="P6_A2"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P7_A3, StringFormat={}{0:F0}}"
+                                Header="P7_A3"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding oDof.P8_A4, StringFormat={}{0:F0}}"
+                                Header="P8_A4"
                                 IsReadOnly="True" />
 
                         </DataGrid.Columns>

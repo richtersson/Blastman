@@ -3,7 +3,7 @@
   
   <RuntimeRequirements />
   <Components Description="install">
-    <RuntimeRequirements OS="Win32|Win64" Platform="Inventor" SeriesMin="Ir17" SeriesMax="Ir24" />
+    <RuntimeRequirements OS="Win32|Win64" Platform="Inventor" SeriesMin="Ir17" SeriesMax="Ir26" />
     <ComponentEntry AppName="Blastman NC Control" Version="1.0.0" ModuleName="Blastman NC Control.addin" AppDescription="" />
   </Components>
 </ApplicationPackage>

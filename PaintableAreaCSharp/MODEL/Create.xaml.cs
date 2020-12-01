@@ -335,8 +335,14 @@ namespace Blastman
             TotalProgramTime = _positionList.Sum(item => Convert.ToInt32(item.Time_or_axle));
         }
 
-        
 
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.InvalidateVisual();
+            }
+        }
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridRow row = sender as DataGridRow;

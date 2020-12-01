@@ -25,7 +25,8 @@ namespace Blastman
 {
     public static class AddinGlobal
     {
-        public static string BlastmanModelFolder = @"C:\BLASTMAN_DATA";
+        public static string BlastmanModelFolder = "";
+        public static string DatabasePath = "";
         public static string CurrentUser = "";
         public static Inventor.Application InventorApp;
         public static System.Windows.Application app;
@@ -38,6 +39,7 @@ namespace Blastman
         public static Meranie AktivneMeranie;
         public static Rezy rezy;
         public static Predpis_kontroly AktivnyPredpisKontroly;
+        public static Blastman_program AktivnyBlastmanProgram;
         public static Rez LastRez1;
         public static Rez LastRez2;
         public static HighlightSet oSetFaces;
@@ -51,7 +53,7 @@ namespace Blastman
         //  public static InventorButton button4;
         //public static InventorButton button3;
 
-        public static string Blastman_version = "0.1";
+        public static string Blastman_version = "0.9";
         public static string DriveLetter;
         public static string ServerIPAdress;
         public static string ServerLoginName;

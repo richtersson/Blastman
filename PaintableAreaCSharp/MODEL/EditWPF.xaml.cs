@@ -145,8 +145,9 @@ namespace Blastman
                     cldDB.P_NEUPLNYPROGRAM_DEL(oPosition.ProgramName);
                     programlist.Remove(oPosition);
 
-                   //TODO
-                   //VYMAZAŤ DÁTA Z DISKU
+                    //TODO
+                    //VYMAZAŤ DÁTA Z DISKU
+                    System.IO.Directory.Delete(AddinGlobal.BlastmanModelFolder + @"\" + oPosition.ProgramName, true);
                    
                 }
                 else if (result == MessageBoxResult.No)
@@ -164,7 +165,25 @@ namespace Blastman
 
         private void BtnCopy_Click(object sender, RoutedEventArgs e)
         {
-           
+            if (dtgProgramList.SelectedItems != null && dtgProgramList.SelectedItems.Count != 0)
+            {
+                Blastman_program oPosition = dtgProgramList.SelectedItem as Blastman_program;
+                string newname;
+                CopyWPF oCopy = new CopyWPF();
+                oCopy.Name += value => newname = value;
+                oCopy.ShowDialog();
+
+
+
+
+                   
+
+
+                
+              
+            }
+            else
+                MessageBox.Show("Nie je vybratý žiadny program");
         }
        
 
@@ -183,6 +202,10 @@ namespace Blastman
 
         private void BtnOpen_Click(object sender, RoutedEventArgs e)
         {
+            OpenProgram();
+        }
+        private void OpenProgram()
+        {
             if (dtgProgramList.SelectedItem != null)
             {
                 Blastman_program oProgram = dtgProgramList.SelectedItem as Blastman_program;
@@ -196,14 +219,14 @@ namespace Blastman
                     DataTable dtPositions = cldDB.P_POSITION_SEL(oProgram.ProgramName);
                     foreach (DataRow row in dtPositions.Rows)
                     {
-                        
 
-                        oProgram.PositionList.Add(new PositionConfiguration(AddinGlobal.InventorApp, (int)row["positionNumber"],(double)row["P1_X"], (double)row["P2_Y"], (double)row["P3_C"], (double)row["P4_Z"], (double)row["P5_A1"], (double)row["P6_A2"], (double)row["P7_A3"], (double)row["P8_A4"], (string)row["time_or_axle"], (string)row["joint_speed"], (string)row["blasting_state"], (string)row["swing_axle"], (string)row["swing_angle"], (string)row["swing_speed"]));
+
+                        oProgram.PositionList.Add(new PositionConfiguration(AddinGlobal.InventorApp, (int)row["positionNumber"], (double)row["P1_X"], (double)row["P2_Y"], (double)row["P3_C"], (double)row["P4_Z"], (double)row["P5_A1"], (double)row["P6_A2"], (double)row["P7_A3"], (double)row["P8_A4"], (string)row["time_or_axle"], (string)row["joint_speed"], (string)row["blasting_state"], (string)row["swing_axle"], (string)row["swing_angle"], (string)row["swing_speed"]));
 
 
                     }
 
-
+                    AddinGlobal.AktivnyBlastmanProgram = oProgram;
                     Create oCreate = new Create(oProgram);
                     oCreate.Show();
 
@@ -213,10 +236,14 @@ namespace Blastman
 
             }
         }
-
         private void CollectionViewSource_Filter_1(object sender, FilterEventArgs e)
         {
 
+        }
+
+        private void Row_DoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenProgram();
         }
     }
 }

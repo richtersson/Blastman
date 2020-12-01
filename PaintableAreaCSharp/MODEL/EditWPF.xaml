@@ -170,8 +170,8 @@
                     Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow">
-                            <!--<EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick" />
-                            <EventSetter Event="KeyUp" Handler="DataGridRow_KeyUp" />-->
+                            <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick" />
+                            
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>

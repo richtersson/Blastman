@@ -38,8 +38,8 @@ namespace Blastman
             //    bi.Select();
             //}
 
-           
-           
+
+
         }
         //vytvorenie kusovníka
         public static void Button2_Execute()
@@ -55,7 +55,7 @@ namespace Blastman
             //{
             //    tr.Select();
             //}
- 
+
         }
         public static void Button3_Execute()
         {
@@ -73,18 +73,18 @@ namespace Blastman
                 // especially if used as modeless
                 var helper = new System.Windows.Interop.WindowInteropHelper(oLogin);
                 helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
-                    
+
                 oLogin.Show();
             }
             else
             {
                 oLogin.Activate();
-               
+
             }
 
 
         }
-      
+
         public static void Button4_Execute()
         {
             //Login oLogin = null;
@@ -97,18 +97,18 @@ namespace Blastman
             //}
             //catch
             //{ }
-            
-                foreach (InventorButton iBtn in AddinGlobal.ButtonList)
-                {
-                    if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
-                        iBtn.ButtonDef.Enabled = false;
-                    if (iBtn.ButtonDef.DisplayName == "Prihlásiť")
-                        iBtn.ButtonDef.Enabled = true;
 
-                }
-                AddinGlobal.LoggedIn = false;
-                
-           
+            foreach (InventorButton iBtn in AddinGlobal.ButtonList)
+            {
+                if (iBtn.ButtonDef.DisplayName != "Prihlásiť")
+                    iBtn.ButtonDef.Enabled = false;
+                if (iBtn.ButtonDef.DisplayName == "Prihlásiť")
+                    iBtn.ButtonDef.Enabled = true;
+
+            }
+            AddinGlobal.LoggedIn = false;
+
+
 
         }
         public static void Button5_Execute()
@@ -175,12 +175,44 @@ namespace Blastman
             //    oView.Select();
             //}
 
-          
+
         }
         public static void Button8_Execute()
         {
-            //Create oCreate = new Create();
-            //oCreate.Show();
+            //Blastman_program oProgram = new Blastman_program(AddinGlobal.InventorApp);
+
+            //string ModelPath = AddinGlobal.BlastmanModelFolder + @"\" + oProgram.ProgramName + @"\" + oProgram.ProgramName + ".iam";
+            //if (ModelPath != null)
+            //{
+            //    AddinGlobal.InventorApp.Documents.Open(ModelPath);
+            //    oProgram.MapParameters();
+            //    this.Close();
+            //    DataTable dtPositions = cldDB.P_POSITION_SEL(oProgram.ProgramName);
+            //    foreach (DataRow row in dtPositions.Rows)
+            //    {
+
+
+            //        oProgram.PositionList.Add(new PositionConfiguration(AddinGlobal.InventorApp, (int)row["positionNumber"], (double)row["P1_X"], (double)row["P2_Y"], (double)row["P3_C"], (double)row["P4_Z"], (double)row["P5_A1"], (double)row["P6_A2"], (double)row["P7_A3"], (double)row["P8_A4"], (string)row["time_or_axle"], (string)row["joint_speed"], (string)row["blasting_state"], (string)row["swing_axle"], (string)row["swing_angle"], (string)row["swing_speed"]));
+
+
+            //    }
+
+
+            //    Create oCreate = new Create(oProgram);
+            //    oCreate.Show();
+
+            //}
+            Create oCreate = null;
+            if (AddinGlobal.IsWindowOpenReal<Window>("Create"))
+
+            {
+                oCreate = new Create(AddinGlobal.AktivnyBlastmanProgram);
+                oCreate.Show();
+            }
+            else
+            {
+                oCreate.Activate();
+            }
         }
 
 
