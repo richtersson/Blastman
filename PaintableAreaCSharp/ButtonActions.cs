@@ -214,6 +214,29 @@ namespace Blastman
                 oCreate.Activate();
             }
         }
+        public static void Button9_Execute()
+        {
+            LoadProgram oProgram = null;
+            //View oView = null;
+            //Edit oEdit = null;
+            //Novy_PK oNovyPK = null;
+            // ((oLogin = (Login)AddinGlobal.IsWindowOpen<Window>("Login"))==null)
+            if (AddinGlobal.IsWindowOpenReal<Window>("LoadProgram"))
+            {
+                oProgram = new LoadProgram();
+                // Could be a good idea to set the owner for this window
+                // especially if used as modeless
+                var helper = new System.Windows.Interop.WindowInteropHelper(oProgram);
+                helper.Owner = new IntPtr(AddinGlobal.InventorApp.MainFrameHWND);
+
+                oProgram.Show();
+            }
+            else
+            {
+                oProgram.Activate();
+
+            }
+        }
 
 
 

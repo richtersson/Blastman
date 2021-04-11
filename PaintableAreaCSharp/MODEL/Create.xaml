@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     Title="Blastman program"
-    Height="800"
+    Height="850"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Window.Resources>
@@ -131,8 +131,7 @@
                 <Slider
                     x:Name="sliderP1_X"
                     LargeChange="5"
-                    Maximum="10000"
-                    Minimum="0"
+                   
                     SmallChange="5"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
@@ -147,8 +146,8 @@
                 </DockPanel>
                 <Slider
                     x:Name="sliderP2_Y"
-                    Maximum="5000"
-                    Minimum="0"
+                    Maximum="5200"
+                    Minimum="1"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P2_Y, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -159,8 +158,8 @@
                 </DockPanel>
                 <Slider
                     x:Name="sliderP3_"
-                    Maximum="360"
-                    Minimum="-360"
+                    Maximum="180"
+                    Minimum="-180"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P3_C, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -171,7 +170,7 @@
 
                 <Slider
                     x:Name="sliderP4_Z"
-                    Maximum="1000"
+                    Maximum="3760"
                     Minimum="0"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
@@ -183,8 +182,8 @@
 
                 <Slider
                     x:Name="sliderP5_A1"
-                    Maximum="90"
-                    Minimum="0"
+                    Maximum="58"
+                    Minimum="-120"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="5"
                     Value="{Binding P5_A1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -195,8 +194,8 @@
 
                 <Slider
                     x:Name="sliderP6_A2"
-                    Maximum="360"
-                    Minimum="-360"
+                    Maximum="118"
+                    Minimum="-100"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P6_A2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -207,8 +206,8 @@
 
                 <Slider
                     x:Name="sliderP7_A3"
-                    Maximum="360"
-                    Minimum="-360"
+                    Maximum="199"
+                    Minimum="-191"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P7_A3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -219,8 +218,8 @@
 
                 <Slider
                     x:Name="sliderP8_A4"
-                    Maximum="360"
-                    Minimum="-360"
+                    Maximum="136"
+                    Minimum="-136"
                     Style="{StaticResource DOFSlider}"
                     TickFrequency="100"
                     Value="{Binding P8_A4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -326,7 +325,15 @@
                         <Label Content="{Binding TotalProgramTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0} s}" />
 
                     </StackPanel>
-                    <Label Content="Ovládanie programu" DockPanel.Dock="Top" />
+                    <StackPanel
+                        Margin="20,0,0,0"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal">
+                        <Label Content="Domovská poloha:" />
+                        <Label Content="{Binding TotalProgramTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0} s}" />
+
+                    </StackPanel>
+                    <!--<Label Content="Ovládanie programu" DockPanel.Dock="Top" Margin="0,0,0,0" />-->
                     <Separator DockPanel.Dock="Top" />
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                         <Button
@@ -387,7 +394,8 @@
                         Content="Zoznam polôh robota"
                         DockPanel.Dock="Top"
                         FontSize="20" />
-                    <Border
+                    
+                    <!--<Border
                         Margin="0,5,0,0"
                         BorderBrush="Transparent"
                         BorderThickness="0"
@@ -402,9 +410,10 @@
 
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-
+                           
                         </Grid>
-                    </Border>
+                    </Border>-->
+                    
                     <DataGrid
                         x:Name="datagridPolohy"
                         Grid.Column="0"
@@ -441,6 +450,18 @@
                                 Binding="{Binding Blasting_state}"
                                 FontWeight="Bold"
                                 Header="Blasting"
+                                IsReadOnly="False" />
+                            <DataGridTextColumn
+                                Width="auto"
+                                Binding="{Binding Swing_axle}"
+                                FontWeight="Bold"
+                                Header="Swing Axle"
+                                IsReadOnly="False" />
+                            <DataGridTextColumn
+                                Width="auto"
+                                Binding="{Binding Swing_angle}"
+                                FontWeight="Bold"
+                                Header="Swing Angle"
                                 IsReadOnly="False" />
 
                             <DataGridTextColumn
@@ -490,6 +511,7 @@
                                 IsReadOnly="True" />
 
                         </DataGrid.Columns>
+                       
                     </DataGrid>
 
                 </DockPanel>

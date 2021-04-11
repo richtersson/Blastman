@@ -1,1 +1,7 @@
-﻿
+﻿0.91
+- pridané limity do settings.xml, opravené limity
+- pridaná kontrola aktívneho projektu
+- opravené tlačidlo Domov
+
+0.95
+- pridaná funkčnosť otvorenia existujúceho programu

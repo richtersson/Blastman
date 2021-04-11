@@ -21,7 +21,8 @@ namespace Blastman
                 cldDB.P_LOGIN(txtUserName.Text, txtPassword.Password);
 
 
-
+                if (AddinGlobal.InventorApp.DesignProjectManager.ActiveDesignProject.Name != AddinGlobal.BlastmanProject)
+                    throw new Exception("Aktívny projekt Inventoru musí byť nastavený na " + AddinGlobal.BlastmanProject);
 
 
                 AddinGlobal.LoggedIn = true;
@@ -50,7 +51,7 @@ namespace Blastman
             }
             catch (Exception ex)
             {
-                lblInfo.Content = ex.Message;
+                lblInfo.Text = ex.Message;
 
             }
 
@@ -82,7 +83,7 @@ namespace Blastman
                 }
                 catch (Exception ex)
                 {
-                    lblInfo.Content = ex.Message;
+                    lblInfo.Text = ex.Message;
 
                 }
             }

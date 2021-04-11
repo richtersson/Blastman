@@ -53,11 +53,29 @@ namespace Blastman
         //  public static InventorButton button4;
         //public static InventorButton button3;
 
-        public static string Blastman_version = "0.9";
+        public static string Blastman_version = "0.95";
         public static string DriveLetter;
         public static string ServerIPAdress;
         public static string ServerLoginName;
         public static string ServerLoginPassword;
+
+        public static string P1_Min;
+        public static string P1_Max;
+        public static string P2_Min;
+        public static string P2_Max;
+        public static string P3_Min;
+        public static string P3_Max;
+        public static string P4_Min;
+        public static string P4_Max;
+        public static string P5_Min;
+        public static string P5_Max;
+        public static string P6_Min;
+        public static string P6_Max;
+        public static string P7_Min;
+        public static string P7_Max;
+        public static string P8_Min;
+        public static string P8_Max;
+        public static string BlastmanProject;
 
         public static string ClassId
         {

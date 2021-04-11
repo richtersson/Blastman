@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <Blastman Folder="C:\BLASTMAN_DATA" Database="D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\Blastman.mdf" ></Blastman>
- </Settings>
+  <Limits P1_Min="1" P1_Max="8586" P2_Min="1" P2_Max="5200" P3_Min="-180" P3_Max="180" P4_Min="0" P4_Max="3760" P5_Min="-120" P5_Max="58" P6_Min="-100" P6_Max="118" P7_Min="-191" P7_Max="199" P8_Min="-136" P8_Max="136"> </Limits>
+  <Project Name="Blastman_Final"></Project> 
+</Settings>

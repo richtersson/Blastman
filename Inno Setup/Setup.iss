@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Blastman NC Control for Inventor"
-#define MyAppVersion "0.9"
+#define MyAppVersion "0.91"
 #define MyAppPublisher "M&P s.r.o."
 #define MyAppURL "www.map.sk"
 
@@ -19,8 +19,8 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 CreateAppDir=no
-OutputDir=F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\Inno Setup
-OutputBaseFilename=Blastman NC Control for Inventor
+OutputDir=D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\Inno Setup
+OutputBaseFilename=Blastman NC Control for Inventor {#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 
@@ -28,12 +28,12 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\bin\Debug\Blastman NC control.dll"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\PackageContents.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle"; Flags: ignoreversion
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\Blastman NC Control.Addin"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\settings.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\XMLfooter_home.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
-Source: "F:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\XMLheader.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\bin\Debug\Blastman NC control.dll"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\PackageContents.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\Blastman NC Control.Addin"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\settings.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\XMLfooter_home.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
+Source: "D:\OneDrive - map.sk\_Projekt Blastman\Nadstavba Visual Studio\PaintableAreaCSharp\XMLheader.xml"; DestDir: "{commonappdata}\Autodesk\ApplicationPlugins\Blastman NC Control.bundle\Contents"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Dirs]

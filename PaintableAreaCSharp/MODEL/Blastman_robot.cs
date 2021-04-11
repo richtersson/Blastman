@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Xml;
 
 namespace Blastman
 {
@@ -23,6 +24,7 @@ namespace Blastman
         private string author;
         private int state;
         private string creationdate;
+        private int simulatingPosition;
         private Inventor.Application inventorApp;
         AssemblyDocument oAssembly;
         AssemblyComponentDefinition oAssemblyDef;
@@ -53,6 +55,7 @@ namespace Blastman
         public string Author { get => author; set => author = value; }
         public int State { get => state; set => state = value; }
         public string CreationDate { get => creationdate; set => creationdate = value; }
+        public int SimulatingPosition { get => simulatingPosition; set => simulatingPosition = value; }
 
         public Blastman_program(Inventor.Application inventorapp)
         {
@@ -124,6 +127,45 @@ namespace Blastman
 
             return true;
         }
+        public void XMLImport(string XMLpath)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(XMLpath);
+
+            XmlNodeList xnList = xml.SelectNodes("/info/point");
+
+
+
+            foreach (XmlNode xn in xnList)
+            {
+
+
+                XmlAttribute j1 = xn.Attributes["j1"];
+                XmlAttribute j2 = xn.Attributes["j2"];
+                XmlAttribute j3 = xn.Attributes["j3"];
+                XmlAttribute j4 = xn.Attributes["j4"];
+                XmlAttribute j5 = xn.Attributes["j5"];
+                XmlAttribute j6 = xn.Attributes["j6"];
+                XmlAttribute j7 = xn.Attributes["j7"];
+                XmlAttribute j8 = xn.Attributes["j8"];
+                XmlAttribute time_or_axle = xn.Attributes["time_or_axle"];
+                XmlAttribute joint_speed = xn.Attributes["joint_speed"];
+                XmlAttribute blasting_state = xn.Attributes["blasting_state"];
+                XmlAttribute swing_axle = xn.Attributes["swing_axle"];
+                XmlAttribute swing_angle = xn.Attributes["swing_angle"];
+                XmlAttribute swing_speed = xn.Attributes["swing_speed"];
+
+
+                System.Diagnostics.Trace.WriteLine(j1.Value);
+
+
+                //TODO
+                //positionlist.Add(new PositionConfiguration(AddinGlobal.InventorApp, (int)xn.A));
+                //position++;
+                positionlist.Add(new PositionConfiguration(inventorApp, positionlist.Count + 1, -Math.Round(Convert.ToDouble(j1.Value) / 100), -Math.Round(Convert.ToDouble(j2.Value) / 100), Math.Round(Convert.ToDouble(j3.Value) / 100), Math.Round(Convert.ToDouble(j4.Value) / 100), Math.Round(Convert.ToDouble(j5.Value) / 100), Math.Round(Convert.ToDouble(j6.Value) / 100), Math.Round(Convert.ToDouble(j7.Value) / 100), Math.Round(Convert.ToDouble(j8.Value) / 100), time_or_axle.Value, joint_speed.Value, blasting_state.Value, swing_axle.Value, swing_angle.Value, swing_speed.Value));
+            }
+
+        }
         public void MoveDirectly(double input)
         {
             oP1_X.Value = input;
@@ -171,9 +213,9 @@ namespace Blastman
                 point += @"j3=""" + Math.Round(oPosition.oDof.P3_C * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"j4=""" + Math.Round(oPosition.oDof.P4_Z * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"j5=""" + Math.Round(oPosition.oDof.P5_A1 * 100).ToString() + @"""" + System.Environment.NewLine;
-                point += @"j6=""" + Math.Round(-oPosition.oDof.P6_A2 * 100).ToString() + @"""" + System.Environment.NewLine;
-                point += @"j7=""" + Math.Round(-oPosition.oDof.P7_A3 * 100).ToString() + @"""" + System.Environment.NewLine;
-                point += @"j8=""" + Math.Round(-oPosition.oDof.P8_A4 * 100).ToString() + @"""" + System.Environment.NewLine;
+                point += @"j6=""" + Math.Round(oPosition.oDof.P6_A2 * 100).ToString() + @"""" + System.Environment.NewLine;
+                point += @"j7=""" + Math.Round(oPosition.oDof.P7_A3 * 100).ToString() + @"""" + System.Environment.NewLine;
+                point += @"j8=""" + Math.Round(oPosition.oDof.P8_A4 * 100).ToString() + @"""" + System.Environment.NewLine;
                 point += @"time_or_axle=""" + oPosition.Time_or_axle + @"""" + System.Environment.NewLine;
                 point += @"joint_speed=""" + oPosition.Joint_speed + @"""" + System.Environment.NewLine;
                 point += @"blasting_state=""" + oPosition.Blasting_state + @"""" + System.Environment.NewLine;
@@ -192,8 +234,8 @@ namespace Blastman
             for (int i = 0; i < positionlist.Count - 1; i++)
             {
                 RunBetweenPositions(positionlist[i], positionlist[i + 1]);
-
-
+                SimulatingPosition = i;
+               
             }
         }
         private void RunBetweenPositions(PositionConfiguration firstposition, PositionConfiguration secondposition)
@@ -396,7 +438,7 @@ namespace Blastman
             get { return _P1_X; }
             set
             {
-                _P1_X = value;
+                _P1_X = Convert.ToDouble(value);
                 OnPropertyChanged("P1_X");
             }
         }

@@ -111,7 +111,7 @@ namespace Blastman
                 AddinGlobal.ButtonList.Add(NewButton);
 
                 InventorButton EditButton = new InventorButton(
-                    "Editovať", "PaintableArea.Button_" + Guid.NewGuid().ToString(), "Meranie", "",
+                    "Upraviť", "PaintableArea.Button_" + Guid.NewGuid().ToString(), "Meranie", "",
                     Edit_small, Edit,
                     CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
                 EditButton.SetBehavior(false, true, true);
@@ -127,7 +127,16 @@ namespace Blastman
                 ViewButton.ButtonDef.Enabled = false;
                 ViewButton.Execute = ButtonActions.Button7_Execute;
                 AddinGlobal.ButtonList.Add(ViewButton);
-                
+
+                InventorButton LoadButton = new InventorButton(
+                    "Načítať", "PaintableArea.Button_" + Guid.NewGuid().ToString(), "Meranie", "",
+                    Create_small, Create,
+                    CommandTypesEnum.kShapeEditCmdType, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                LoadButton.SetBehavior(false, true, true);
+                LoadButton.ButtonDef.Enabled = false;
+                LoadButton.Execute = ButtonActions.Button9_Execute;
+                AddinGlobal.ButtonList.Add(LoadButton);
+
 
                 if (loaded1stTime == true)
                 {
@@ -172,7 +181,7 @@ namespace Blastman
                         cmdCtrls2.AddButton(NewButton.ButtonDef, NewButton.DisplayBigIcon, NewButton.DisplayText, "", NewButton.InsertBeforeTarget);
                         
                         cmdCtrls2.AddButton(EditButton.ButtonDef, EditButton.DisplayBigIcon, EditButton.DisplayText, "", EditButton.InsertBeforeTarget);
-                        //cmdCtrls2.AddButton(ViewButton.ButtonDef, ViewButton.DisplayBigIcon, ViewButton.DisplayText, "", ViewButton.InsertBeforeTarget);
+                        cmdCtrls2.AddButton(LoadButton.ButtonDef, LoadButton.DisplayBigIcon, LoadButton.DisplayText, "", LoadButton.InsertBeforeTarget);
                         
                         
                         

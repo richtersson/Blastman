@@ -21,6 +21,7 @@ using System.Windows.Interop;
 using System.IO;
 using Blastman.Properties;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Blastman
 {
@@ -48,7 +49,7 @@ namespace Blastman
         private double p8_A4;
         private int totalprogramtime;
         private string programname;
-
+        private int simulatingPosition;
 
 
         #region Properties
@@ -78,7 +79,7 @@ namespace Blastman
             {
                 if (value != p1_X)
                 {
-                    p1_X = value;
+                    p1_X = Convert.ToDouble(value);
                     OnPropertyChanged("P1_X");
 
                     try
@@ -295,6 +296,18 @@ namespace Blastman
                 }
             }
         }
+        public int SimulatingPosition
+        {
+            get => simulatingPosition; set
+            {
+                if (value != simulatingPosition)
+                {
+                    simulatingPosition = value;
+                    OnPropertyChanged("SimulatingPosition");
+
+                }
+            }
+        }
 
         public string ProgramName
         {
@@ -316,12 +329,31 @@ namespace Blastman
             _oBlastmanProgram = blastmanprogram;
             programname = _oBlastmanProgram.ProgramName;
             _positionList = _oBlastmanProgram.PositionList;
-            time_or_axle = "1";
+            simulatingPosition = oBlastmanProgram.SimulatingPosition;
+            time_or_axle = "10";
             joint_speed = "0";
             blasting_state = "0";
             swing_axle = "0";
             swing_angle = "3000";
             swing_speed = "1000";
+            sliderP1_X.Minimum = Convert.ToDouble(AddinGlobal.P1_Min);
+            sliderP1_X.Maximum = Convert.ToDouble(AddinGlobal.P1_Max);
+            sliderP2_Y.Minimum = Convert.ToDouble(AddinGlobal.P2_Min);
+            sliderP2_Y.Maximum = Convert.ToDouble(AddinGlobal.P2_Max);
+            sliderP3_.Minimum = Convert.ToDouble(AddinGlobal.P3_Min);
+            sliderP3_.Maximum = Convert.ToDouble(AddinGlobal.P3_Max);
+            sliderP4_Z.Minimum = Convert.ToDouble(AddinGlobal.P4_Min);
+            sliderP4_Z.Maximum = Convert.ToDouble(AddinGlobal.P4_Max);
+            sliderP5_A1.Minimum = Convert.ToDouble(AddinGlobal.P5_Min);
+            sliderP5_A1.Maximum = Convert.ToDouble(AddinGlobal.P5_Max);
+            sliderP6_A2.Minimum = Convert.ToDouble(AddinGlobal.P6_Min);
+            sliderP6_A2.Maximum = Convert.ToDouble(AddinGlobal.P6_Max);
+            sliderP7_A3.Minimum = Convert.ToDouble(AddinGlobal.P7_Min);
+            sliderP7_A3.Maximum = Convert.ToDouble(AddinGlobal.P7_Max);
+            sliderP8_A4.Minimum = Convert.ToDouble(AddinGlobal.P8_Min);
+            sliderP8_A4.Maximum = Convert.ToDouble(AddinGlobal.P8_Max);
+
+
 
 
             this.DataContext = this;
@@ -417,6 +449,7 @@ namespace Blastman
             {
                 oPosition2.PositionNumber = _positionList.IndexOf(oPosition2) + 1;
             }
+            datagridPolohy.Items.SortDescriptions.Add(new SortDescription("PositionNumber", ListSortDirection.Ascending));
             OnPropertyChanged("oPositionList");
         }
 
@@ -588,7 +621,17 @@ namespace Blastman
 
         private void BtnHomePosition_Click(object sender, RoutedEventArgs e)
         {
-            oBlastmanProgram.MoveToSliders(0, 0, 0, 0, 0, 0, 0, 0);
+            oBlastmanProgram.MoveToSliders(1, 1, 0, 0, 0, 0, 0, 0);
+            P1_X = 1;
+            P2_Y = 1;
+            P3_C = 0;
+            P4_Z = 0;
+            P5_A1 = 0;
+            P6_A2 = 0;
+            P7_A3 = 0;
+            P8_A4 = 0;
+
+
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -635,10 +678,12 @@ namespace Blastman
             }
         }
 
+
         //private void SliderP1_X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         //{
         //    oBlastmanProgram.MoveDirectly(-e.NewValue/10);
             
         //}
     }
+  
 }
